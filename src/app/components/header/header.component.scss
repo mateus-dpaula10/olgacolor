@@ -1,0 +1,22 @@
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: #000;
+    padding: 1rem 0;
+
+    ul {
+        li {
+            a {
+                color: #FFF;
+                transition: .35s ease-in-out;
+            }
+    
+            &:hover {
+                a {
+                    opacity: .5;
+                }
+            }
+        }
+    }
+}
