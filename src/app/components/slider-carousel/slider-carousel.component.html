@@ -1,0 +1,12 @@
+<div id="slider-carousel">
+    <div class="container">
+        <div class="carousel">
+            @for (img of imgCarouselSlider; track img) {
+                <div class="slide">
+                    <img [src]="img.src" alt="Imagem do caorusel slider">
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

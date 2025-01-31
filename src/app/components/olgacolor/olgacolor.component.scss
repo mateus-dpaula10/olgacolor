@@ -1,0 +1,32 @@
+#olgacolor {
+    padding: 5rem 0;
+    background-color: #000;
+    color: #FFF;
+
+    h5 {
+        margin: 3rem 0 0;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 3.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .row {
+        > div {
+            h1 {
+                font-size: 5.5rem;
+                margin-bottom: 1rem;
+            }
+
+            p {
+                margin: 1.5rem 0 0;
+            }
+        }
+    }
+}

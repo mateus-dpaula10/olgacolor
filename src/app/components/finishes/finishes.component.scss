@@ -1,0 +1,93 @@
+#finishes {
+    padding: 5rem 0;
+
+    .container {
+        h1 {
+            margin-bottom: 1.5rem;
+        }
+    
+        > div {
+            &:nth-of-type(1) {
+                margin: 1.5rem 0 3rem;
+                width: 100%;
+    
+                @media (min-width: 768px) {
+                    max-width: 50%;
+                }
+            }
+
+            &:nth-of-type(2) {
+                .block {
+                    background-size: cover;
+                    border-radius: 1rem;
+                    color: #FFF;
+
+                    .header {
+                        display: flex;
+                        gap: 2rem;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        span {
+                            flex-shrink: 0;
+                            border: 3px solid #FFF;
+                            border-radius: 50%; 
+                            width: 2rem;
+                            height: 2rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transform: rotate(45deg);
+                            cursor: pointer;
+                            font-size: .9rem;
+                        }
+                    }
+
+                    .body {
+                        p {
+                            // padding-top: 2rem;
+                            margin: 0;
+                            transition: all .35s ease-in-out;
+                        }
+                    }
+
+                    @media (min-width: 992px) {
+                        border-radius: 1rem 1rem 0 0;
+                    }
+                }
+
+                > div {
+                    &:nth-of-type(1) {
+                        .block {
+                            padding-bottom: 4rem;
+                        }
+                    }
+
+                    &:nth-of-type(2) {
+                        margin-top: 1rem; 
+
+                        @media (min-width: 992px) {
+                            margin-top: 0;
+                        }
+
+                        .block {
+                            padding-bottom: 2rem;
+                        }
+                    }
+
+                    &:nth-of-type(3) {
+                        margin-top: 1rem; 
+
+                        @media (min-width: 992px) {
+                            margin-top: 0;
+                        }
+
+                        .block {
+                            padding-bottom: 6rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

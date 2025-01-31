@@ -1,0 +1,38 @@
+#footer {
+    padding: 3rem 0;
+
+    h5 {
+        margin-bottom: 2rem;
+    }
+
+    ul {
+        padding: 0;
+
+        li {
+            list-style: none;
+
+            a {
+                color: #6e6e6e;
+                transition: all .35s ease-in-out;
+            }
+            
+            &:hover {
+                a {
+                    color: #000;
+                }
+            }
+        }
+
+        &#block_links {
+            li {
+                a {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    p {
+        color: #6e6e6e;
+    }
+}

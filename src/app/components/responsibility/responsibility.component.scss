@@ -1,0 +1,52 @@
+#responsibility {
+    position: relative;
+    padding: 10rem 0;
+
+    #video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(to right, rgba(0,0,0,.75), rgba(0,0,0,.25));
+        }
+    }
+
+    #content {
+        position: relative;
+        z-index: 1;
+        color: #FFF;
+
+        > div {
+            display: flex;
+            justify-content: center;
+
+            > div {
+                width: max-content;
+
+                h5 {
+                    font-size: 1.5rem;
+                    margin: 0;
+                }
+        
+                h1 {
+                    font-size: 4rem;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

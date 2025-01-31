@@ -1,0 +1,33 @@
+<div id="finishes">
+    <div class="container">
+        <h1>Acabamentos</h1>
+        <app-dividing-line [width]="dynamicWidth" [bg]="dynamicBg" />
+        <div>
+            <p>
+                A perceção das cores e acabamentos pode variar conforme o ecrã e a iluminação. 
+                Para garantir precisão na escolha, recomendamos sempre a consulta prévia da 
+                disponibilidade de cores, padrões e produtos com o acabamento desejado. 
+                Inspire-se nos detalhes, mas confie na experiência para a decisão final.
+            </p>
+        </div>
+        <div class="row align-items-end">            
+            <div class="col-lg-4" *ngFor="let finish of finishes; let i = index">
+                <div class="block px-4 pt-4" [style.backgroundImage]="'url(' + finish.img + ')'">
+                    <div class="header">
+                        <h5>{{ finish.title }}</h5>
+                        <span class="bi bi-x-lg" (click)="changeOpacity(i)"></span>
+                    </div>
+                    <div class="body">
+                        <p [ngStyle]="{
+                            opacity: finish.show ? 1 : 0, 
+                            height: finish.show ? 'auto' : 0,
+                            paddingTop: finish.show ? '2rem' : 0
+                        }">
+                            {{ finish.content }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
