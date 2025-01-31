@@ -35,16 +35,22 @@
             justify-content: center;
 
             > div {
-                width: max-content;
-
-                h5 {
-                    font-size: 1.5rem;
+                max-width: 100%;
+                
+                h5, h1 {
                     margin: 0;
                 }
-        
-                h1 {
-                    font-size: 4rem;
-                    margin: 0;
+
+                @media (min-width: 992px) {
+                    max-width: max-content;
+
+                    h5 {
+                        font-size: 1.5rem;
+                    }
+
+                    h1 {
+                        font-size: 4rem
+                    }
                 }
             }
         }
