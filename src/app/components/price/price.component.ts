@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DividingLineComponent } from "../dividing-line/dividing-line.component";
-import { PriceService } from '../../services/price.service';
+import { ApiResponse, PriceService } from '../../services/price.service';
 import { CommonModule } from '@angular/common';
-import { ApiResponse } from '../../interfaces/ApiResponse.interface';
 
 @Component({
   selector: 'app-price',

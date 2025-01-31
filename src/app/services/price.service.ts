@@ -1,7 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../interfaces/ApiResponse.interface';
+
+export interface ApiResponse {
+  results: {
+    currencies: { [key: string]: Currency };
+  }
+}
+
+export interface Currency {
+  sigla: string,
+  buy: number;
+  name: string;
+  code: string;
+  variation: number;
+}
 
 @Injectable({
   providedIn: 'root'
