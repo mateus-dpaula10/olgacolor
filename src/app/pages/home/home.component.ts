@@ -9,10 +9,25 @@ import { FinishesComponent } from "../../components/finishes/finishes.component"
 import { ResponsibilityComponent } from "../../components/responsibility/responsibility.component";
 import { BudgetComponent } from "../../components/budget/budget.component";
 import { PriceComponent } from "../../components/price/price.component";
+import { MainComponent } from "../../components/main/main.component";
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-home',
-  imports: [VisionComponent, MarketsComponent, ProductsComponent, OlgacolorComponent, FooterComponent, SliderCarouselComponent, FinishesComponent, ResponsibilityComponent, BudgetComponent, PriceComponent],
+  imports: [
+    VisionComponent,
+    MarketsComponent,
+    ProductsComponent,
+    OlgacolorComponent,
+    FooterComponent,
+    SliderCarouselComponent,
+    FinishesComponent,
+    ResponsibilityComponent,
+    BudgetComponent,
+    PriceComponent,
+    MainComponent,
+    HeaderComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

@@ -5,5 +5,45 @@
         <h5>COTAÇÃO LME</h5>
 
         <h1>Alumínio e Dólar</h1>
+
+        <div class="row justify-content-end">
+            <div class="col-lg-11">
+                <div class="currencies">
+                    @for (currency of currencies; track currency) {
+                        <div class="currency">
+                            <div>
+                                @if (currency.variation >= 0) {
+                                    <div class="triangulo-para-cima"></div>
+                                } @else {
+                                    <div class="triangulo-para-baixo"></div>
+                                }
+                                <h5>
+                                    {{ currency.name }}
+                                </h5>
+                            </div>
+                            <div>
+                                <div>
+                                    <p class="mb-0">{{ currentMonth <= 9 ? 0 : '' }}{{ currentMonth }}/{{ currentYear }}</p>
+                                </div>
+                                <div class="currency_content">
+                                    <div>
+                                        <p class="mb-0">{{ currency.sigla }}</p>
+                                        <p class="mb-0">{{ currency.buy }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">Variação: 
+                                            <span 
+                                                [ngStyle]="{color: currency.variation >= 0 ? 'green' : 'red'}">
+                                                {{ currency.variation }}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </div>

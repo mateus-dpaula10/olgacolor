@@ -1,9 +1,15 @@
 #header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 5;
-    background-color: #000;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: transparent;
     padding: 1rem 0;
+
+    &.scrolled {
+        background-color: #000;
+    }
 
     ul {
         li {
