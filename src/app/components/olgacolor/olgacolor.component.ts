@@ -8,6 +8,6 @@ import { DividingLineComponent } from "../dividing-line/dividing-line.component"
   styleUrl: './olgacolor.component.scss'
 })
 export class OlgacolorComponent {
-  dynamicWidth: number = 10
+  dynamicWidth: number = 30
   dynamicBg: string = '#FFF'
 }

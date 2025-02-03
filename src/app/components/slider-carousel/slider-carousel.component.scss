@@ -1,15 +1,108 @@
 #slider-carousel {
     padding: 5rem 0;
 
-    .carousel {
-        display: flex;
-        max-width: 100%;
-        overflow-x: scroll;
-        gap: 1rem;
+    .container {
+        position: relative;
 
-        .slide {
-            img {
-                border-radius: .5rem;
+        .container-carousel {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            overflow: hidden;
+
+            .list-carousel {
+                display: flex;
+                transition: transform .8s ease-in-out;
+                gap: 1rem;
+    
+                .item-carousel {
+                    position: relative;
+                    cursor: pointer;
+                    flex: 0 0 100%;
+                    overflow: hidden;
+                    border-radius: 1rem;
+
+                    @media (min-width: 576px) {
+                        flex: 0 0 50%;
+                    }
+
+                    @media (min-width: 768px) {
+                        flex: 0 0 33.33%;
+                    }
+
+                    @media (min-width: 992px) {
+                        flex: 0 0 20%;
+                    }
+
+                    img {
+                        border-radius: 1rem;
+                        transition: all .5s ease-in-out;
+                        min-width: 100%;
+                    }
+
+                    > div {
+                        position: absolute;
+                        inset: 0;
+                        padding: 2rem;
+                        color: #FFF;
+                        z-index: 1;
+                        transition: all .5s ease-in-out;
+                        border-radius: 1rem;
+                        
+                        p {
+                            margin: 0;
+                            font-size: .8rem;
+                        }
+                    }
+                    
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        inset: 0;
+                        background-color: #00000064;
+                        transition: all .5s ease-in-out;
+                        cursor: pointer;
+                        border-radius: 1rem;    
+                    }
+
+                    &:hover {
+                        &::after {
+                            background-color: #00000000;
+                        }
+
+                        > div {
+                            opacity: 0;
+                        }
+
+                        img {
+                            transform: scale(1.05);
+                        }
+                    }
+                }
+            }
+        }
+
+        button {
+            &.prev, &.next {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: #FFF;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                aspect-ratio: 1;
+                border: none;
+                font-size: 24px;
+                z-index: 1;
+            }
+
+            &.prev {
+                left: 20px;
+            }
+
+            &.next {
+                right: 20px;
             }
         }
     }

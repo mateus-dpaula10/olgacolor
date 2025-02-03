@@ -1,12 +1,22 @@
 <div id="slider-carousel">
     <div class="container">
-        <div class="carousel">
-            @for (img of imgCarouselSlider; track img) {
-                <div class="slide">
-                    <img [src]="img.src" alt="Imagem do caorusel slider">
-                </div>
-            }
+        <div class="container-carousel">
+            <div class="list-carousel">
+                @for (img of imgCarouselSlider; track img) {
+                    <div class="item-carousel">
+                      <img [src]="img.src" alt="Imagem do carousel slider">
+
+                      <div>
+                        <p>{{ img.title }}</p>
+                        <span>{{ img.subtitle }}</span>
+                      </div>
+                    </div>
+                }                
+            </div>            
         </div>
+
+        <button class="prev" (click)="moveSlide(-1)">&#10094;</button>
+        <button class="next" (click)="moveSlide(1)">&#10095;</button>
     </div>
 </div>
 

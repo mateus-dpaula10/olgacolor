@@ -1,6 +1,10 @@
 #main {
     position: relative;
-    padding: 15rem 0 10rem;
+    padding: 10rem 0;
+    
+    @media (min-width: 992px) {
+        padding: 10rem 0 20rem;
+    }
 
     #main_video {
         position: absolute;
@@ -36,19 +40,19 @@
             > div {
                 max-width: 100%;
                 
-                h5, h1 {
+                h6, h1 {
                     margin: 0;
                 }
 
                 @media (min-width: 992px) {
-                    max-width: 50%;
+                    max-width: max-content;
 
-                    h5 {
-                        font-size: 1.5rem;
+                    h6 {
+                        font-size: 1.25rem;
                     }
 
                     h1 {
-                        font-size: 4rem
+                        font-size: 5rem
                     }
                 }
             }
