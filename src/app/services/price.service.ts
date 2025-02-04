@@ -20,7 +20,7 @@ export interface Currency {
   providedIn: 'root'
 })
 export class PriceService {
-  private apiUrl = 'https://api.hgbrasil.com/finance?key=b99232a3'
+  private apiUrl = '/api/finance?key=b99232a3'
 
   constructor(
     private http: HttpClient

@@ -18,13 +18,13 @@
             .products_block {
                 .products_block_content {
                     position: relative;
-                    padding: 0 5rem;
+                    padding: 0 1.5rem;
 
                     .border-left {
                         position: absolute;
                         top: 0;
                         bottom: 0;
-                        left: 0;
+                        left: 5px;
                         width: 1px;
                         height: 100%;
                         background-color: #dfdfdf;
@@ -49,7 +49,7 @@
                         position: absolute;
                         top: 0;
                         bottom: 0;
-                        right: 0;
+                        right: 5px;
                         width: 1px;
                         height: 100%;
                         background-color: #dfdfdf;
@@ -62,6 +62,26 @@
                             width: 100%;
                             height: 33%;
                             background-color: #000;
+                        }
+                    }
+
+                    @media (min-width: 992px) {
+                        padding: 0 5rem;
+
+                        .border-left {
+                            left: 0;
+                        }
+
+                        .border-right {
+                            right: 0;
+                        }
+
+                        ul {
+                            &:nth-of-type(2) {
+                                li {
+                                    width: 50%;
+                                }
+                            }
                         }
                     }
 
@@ -91,7 +111,6 @@
         
                         &:nth-of-type(2) {
                             li {
-                                width: 50%;
                                 list-style: none;
                                 border-bottom: 1px solid #2f2f2f;
         
