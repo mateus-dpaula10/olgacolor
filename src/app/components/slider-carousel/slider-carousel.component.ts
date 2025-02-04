@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-slider-carousel',
@@ -72,8 +73,10 @@ export class SliderCarouselComponent {
   currentIndex = 0
   itemsPerSlide = 1
 
-  constructor() {
-    this.updateItems()
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.updateItems()
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -82,25 +85,36 @@ export class SliderCarouselComponent {
   }
   
   updateItems() {
-    const width = window.innerWidth
-    if (width >= 576) {
-      this.itemsPerSlide = 2
-    } else if (width >= 768) {
-      this.itemsPerSlide = 3
-    } else if (width >= 992) {
-      this.itemsPerSlide = 5
-    } else {
-      this.itemsPerSlide = 1
+    if (isPlatformBrowser(this.platformId)) {
+      const width = window.innerWidth
+      if (width >= 576 && width < 768) {
+        this.itemsPerSlide = 2
+      } else if (width >= 768 && width < 992) {
+        this.itemsPerSlide = 3
+      } else if (width >= 992) {
+        this.itemsPerSlide = 5
+      } else {
+        this.itemsPerSlide = 1
+      }
     }
   }
 
-  moveSlide(direction: number): void {
-    const totalItems = this.imgCarouselSlider.length
-    const totalVisibleItems = this.itemsPerSlide
+  moveSlide(direction: number): void {  
+    if (direction > 0) {
+      this.currentIndex += this.itemsPerSlide
+      if (this.currentIndex >= this.imgCarouselSlider.length) {
+        this.currentIndex = 0
+      }
+    } else {
+      this.currentIndex -= this.itemsPerSlide
+      if (this.currentIndex < 0) {
+        this.currentIndex = this.imgCarouselSlider.length - this.itemsPerSlide
+      }
+    }
+  
+    const translateXPercentage = (this.currentIndex / this.itemsPerSlide) * 100
     
-    this.currentIndex = (this.currentIndex + direction + totalItems) % totalItems
-
     const carousel = document.querySelector('.list-carousel') as HTMLElement
-    carousel.style.transform = `translateX(-${(this.currentIndex * (100 / totalVisibleItems))}%)`
+    carousel.style.transform = `translateX(-${translateXPercentage}%)`
   }
 }
