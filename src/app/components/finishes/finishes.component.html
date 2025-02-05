@@ -1,6 +1,6 @@
 <div id="finishes">
     <div class="container">
-        <h1>Acabamentos</h1>
+        <h4>Acabamentos</h4>
         <app-dividing-line [width]="dynamicWidth" [bg]="dynamicBg" />
         <div>
             <p>
@@ -14,7 +14,7 @@
             <div class="col-lg-4" *ngFor="let finish of finishes; let i = index">
                 <div class="block px-4 pt-4" [style.backgroundImage]="'url(' + finish.img + ')'">
                     <div class="header">
-                        <h5>{{ finish.title }}</h5>
+                        <h6>{{ finish.title }}</h6>
                         <span class="bi bi-x-lg" (click)="changeOpacity(i)"></span>
                     </div>
                     <div class="body">

@@ -2,142 +2,90 @@
     <div class="container">
         <app-dividing-line [width]="dynamicWidth" [bg]="dynamicBg" />
 
-        <h5>PRODUTOS</h5>
+        <h6>PRODUTOS</h6>
 
         <div id="title">
             <h1>Muito além do <strong>essencial:</strong></h1>
-            <h2 class="mt-4 mb-3">Descubra um universo de soluções para a construção civil.</h2>
+            <h4 class="mt-4 mb-3">Descubra um universo de soluções para a construção civil.</h4>
             <a routerLink="/home" class="btn btn-outline-dark rounded-pill">Todos produtos</a>
         </div>
 
         <div class="parallax_container">
-            <div class="products_block">
-                <div class="row mt-5 align-items-center justify-content-between">
-                    <div class="col-lg-6 products_block_content">
-                        <div class="border-left"></div>
-
-                        <img class="img-fluid" src="assets/images/aglo.avif" alt="Logo da aglo">
-                        <ul>
-                            <li>
-                                <h1>28 dB</h1>
-                                <p>Porta de correr 02 folhas</p>
-                            </li>
-                            <li>
-                                <h1>31 dB</h1>
-                                <p>para carregamento total</p>
-                            </li>
-                        </ul>
-                        <p>
-                            Sistemas residenciais e comerciais completos para todos os padrões: alto, médio e popular. 
-                            Atendem plenamente às normas nas cinco regiões do país.
-                        </p>
-                        <ul class="links">
-                            <li>
-                                <a routerLink="/home">
-                                    <h6>SAIBA MAIS</h6>
-                                    <span class="bi bi-arrow-right-short fs-3"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/home">
-                                    <h6>PRODUTOS</h6>
-                                    <span class="bi bi-arrow-right-short fs-3"></span>
-                                </a>
-                            </li>
-                        </ul>
+            @for (block of blocks; track block) {
+                @if (block.isLeft) {
+                    <div class="products_block">
+                        <div class="row mt-5 align-items-center justify-content-between">
+                            <div class="col-lg-6 products_block_content">
+                                <div class="border-left" [id]="block.isLast ? 'nth-of-type' : ''"></div>
+        
+                                <img class="img-fluid" [src]="block.imgSrc" [alt]="block.altImg">
+                                <ul>
+                                    @for (li of block.details; track li) {
+                                        <li>
+                                            <h3>{{ li.value }}</h3>
+                                            <p>{{ li.description }}</p>
+                                        </li>
+                                    }
+                                </ul>
+                                <p>{{ block.description }}</p>
+                                <ul class="links">
+                                    <li>
+                                        <a routerLink="/home">
+                                            <h6>SAIBA MAIS</h6>
+                                            <span class="bi bi-arrow-right-short fs-3"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/home">
+                                            <h6>PRODUTOS</h6>
+                                            <span class="bi bi-arrow-right-short fs-3"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6 products_block_img mt-5 mt-lg-0">
+                                <img [src]="block.productImg" [alt]="block.altProduct" class="img-fluid">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6 products_block_img mt-5 mt-lg-0">
-                        <img src="assets/images/products_aglo.avif" alt="Imagem de produtos Aglo" class="img-fluid">
+                } @else {
+                    <div class="products_block">
+                        <div class="row mt-5 flex-column-reverse flex-lg-row align-items-center justify-content-between">
+                            <div class="col-lg-6 products_block_img mt-5 mt-lg-0">
+                                <img [src]="block.productImg" [alt]="block.altProduct" class="img-fluid">
+                            </div>
+                            <div class="col-lg-6 products_block_content">
+                                <div class="border-right"></div>
+        
+                                <img class="img-fluid" [src]="block.imgSrc" [alt]="block.altImg">
+                                <ul>
+                                    @for (li of block.details; track li) {
+                                        <li>
+                                            <h3>{{ li.value }}</h3>
+                                            <p>{{ li.description }}</p>
+                                        </li>
+                                    }
+                                </ul>
+                                <p>{{ block.description }}</p>
+                                <ul class="links">
+                                    <li>
+                                        <a routerLink="/home">
+                                            <h6>SAIBA MAIS</h6>
+                                            <span class="bi bi-arrow-right-short fs-3"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/home">
+                                            <h6>PRODUTOS</h6>
+                                            <span class="bi bi-arrow-right-short fs-3"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="products_block">
-                <div class="row mt-5 flex-column-reverse flex-lg-row align-items-center justify-content-between">
-                    <div class="col-lg-6 products_block_img mt-5 mt-lg-0">
-                        <img src="assets/images/products_lock.avif" alt="Imagem de produtos Lock" class="img-fluid">
-                    </div>
-                    <div class="col-lg-6 products_block_content">
-                        <div class="border-right"></div>
-
-                        <img class="img-fluid" src="assets/images/lock.avif" alt="Logo da Lock">
-                        <ul>
-                            <li>
-                                <h1>39 dB</h1>
-                                <p>Sistema residencial acústico</p>
-                            </li>
-                            <li>
-                                <h1>45mm</h1>
-                                <p>Perfis de Bitola</p>
-                            </li>
-                        </ul>
-                        <p>
-                            Sistema de atenuação acústica para portas e janelas deslizantes e de giro, 
-                            que reduzem até 39dB os ruídos característicos dos grandes centros urbanos. 
-                            Ultrapassam os desempenhos exigidos pelas normas brasileiras e garantem além 
-                            do isolamento sonoro, estanqueidade ao ar, água e ao vento.
-                        </p>
-                        <ul class="links">
-                            <li>
-                                <a routerLink="/home">
-                                    <h6>SAIBA MAIS</h6>
-                                    <span class="bi bi-arrow-right-short fs-3"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/home">
-                                    <h6>PRODUTOS</h6>
-                                    <span class="bi bi-arrow-right-short fs-3"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="products_block">
-                <div class="row mt-5 align-items-center justify-content-between">
-                    <div class="col-lg-6 products_block_content">
-                        <div class="border-left" id="nth-of-type"></div>
-
-                        <img class="img-fluid" src="assets/images/grid.avif" alt="Logo da Grid">
-                        <ul>
-                            <li>
-                                <h1>90°</h1>
-                                <p>Sistema construtivo para colunas</p>
-                            </li>
-                            <li>
-                                <h1>45°</h1>
-                                <p>Equadrações do maxim-ar</p>
-                            </li>
-                        </ul>
-                        <p>
-                            Sistema construtivo para fachadas cortina e entre vãos. Os perfis de alumínio 
-                            se sobrepõem externamente criando formas geométricas planejadas com forte apelo 
-                            estético. Sistema construtivo à 90˚para colunas, ancoragens, travessas, presilhas 
-                            e tampas, sendo as requadrações do maxim-ar à 45˚, gerando excelente produtividade 
-                            na fabricação e instalação.
-                        </p>
-                        <ul class="links">
-                            <li>
-                                <a routerLink="/home">
-                                    <h6>SAIBA MAIS</h6>
-                                    <span class="bi bi-arrow-right-short fs-3"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/home">
-                                    <h6>PRODUTOS</h6>
-                                    <span class="bi bi-arrow-right-short fs-3"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6 products_block_img mt-5 mt-lg-0">
-                        <img src="assets/images/products_grid.avif" alt="Imagem de produtos Grid" class="img-fluid">
-                    </div>
-                </div>
-            </div>
+                }
+            }
         </div>
     </div>
 </div>

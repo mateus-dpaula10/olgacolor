@@ -11,6 +11,7 @@ import { BudgetComponent } from "../../components/budget/budget.component";
 import { PriceComponent } from "../../components/price/price.component";
 import { MainComponent } from "../../components/main/main.component";
 import { HeaderComponent } from "../../components/header/header.component";
+import { NewsletterComponent } from "../../components/newsletter/newsletter.component";
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ import { HeaderComponent } from "../../components/header/header.component";
     BudgetComponent,
     PriceComponent,
     MainComponent,
-    HeaderComponent
+    HeaderComponent,
+    NewsletterComponent
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
