@@ -12,7 +12,7 @@ export class ProductsComponent {
   dynamicWidth: number = 10
   dynamicBg: string = '#000'
 
-  blocks = [
+  products_blocks = [
     {
       imgSrc: 'assets/images/aglo.avif',
       altImg: 'Logo da aglo',

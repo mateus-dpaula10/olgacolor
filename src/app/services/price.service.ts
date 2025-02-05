@@ -20,7 +20,8 @@ export interface Currency {
   providedIn: 'root'
 })
 export class PriceService {
-  private apiUrl = 'https://api.hgbrasil.com/finance?format=json-cors&key=b99232a3'
+  // private apiUrl = 'https://api.hgbrasil.com/finance?format=json-cors&key=b99232a3'
+  private apiUrl = 'https://api.hgbrasil.com/finance?format=json-cors'
 
   constructor(
     private http: HttpClient
