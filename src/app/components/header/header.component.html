@@ -12,8 +12,14 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="/pagina-inicial">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/tecnologia">Institucional</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" routerLink="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Institucional
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" routerLink="/tecnologia">Tecnologia</a></li>
+                        <li><a class="dropdown-item" routerLink="/processos-producao">Processos de produção</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="#">Mercados</a>

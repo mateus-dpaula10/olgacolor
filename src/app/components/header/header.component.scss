@@ -7,8 +7,57 @@
     padding: 1rem 0;   
     background-color: #000; 
 
+    ul {
+        li {
+            &.dropdown {
+                &:hover {
+                    a {
+                        opacity: 1;
+                    }
+                }
+
+                ul {
+                    background-color: transparent;
+                    border: 0;
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+                    li {
+                        a {
+                            &:hover {
+                                // background-color: #000;
+                                color: #000!important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &.scrolled {
         background-color: #000;  
+
+        ul {
+            li {
+                &.dropdown {
+                    ul {
+                        background-color: #000;
+
+                        @media (max-width: 992px) {
+                            box-shadow: none;
+                        }
+    
+                        li {
+                            a {
+                                &:hover {
+                                    color: #000!important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @media (min-width: 992px) {

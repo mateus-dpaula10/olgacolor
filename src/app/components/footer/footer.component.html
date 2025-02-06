@@ -15,8 +15,17 @@
                             <li>
                                 <a routerLink="/pagina-inicial">Home</a>
                             </li>
-                            <li>
-                                <a routerLink="/pagina-inicial">Institucional</a>
+                            <!-- <li>
+                                <a routerLink="/tecnologia">Institucional</a>
+                            </li> -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" routerLink="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Institucional
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" routerLink="/tecnologia">Tecnologia</a></li>
+                                    <li><a class="dropdown-item" routerLink="/processos-producao">Processos de produção</a></li>
+                                </ul>
                             </li>
                             <li>
                                 <a routerLink="/pagina-inicial">Mercados</a>

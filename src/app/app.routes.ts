@@ -14,4 +14,8 @@ export const routes: Routes = [
         path: 'tecnologia', 
         loadComponent: () => import('./pages/technology/technology.component').then(mod => mod.TechnologyComponent) 
     },
+    { 
+        path: 'processos-producao', 
+        loadComponent: () => import('./pages/processes-production/processes-production.component').then(mod => mod.ProcessesProductionComponent) 
+    },
 ];
