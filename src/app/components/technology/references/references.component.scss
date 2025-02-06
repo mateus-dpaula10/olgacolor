@@ -1,0 +1,29 @@
+#references {
+    padding: 3rem 0;
+
+    h6 {
+        margin: 0;
+    }
+
+    .row {
+        > div {
+            &:nth-of-type(1) {
+                img {
+                    margin-top: 6rem;
+                }
+            }
+
+            &:nth-of-type(2) {
+                > div {
+                    &:not(:first-of-type) {
+                        margin-top: 1.5rem;
+                    }
+
+                    p {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

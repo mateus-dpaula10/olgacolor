@@ -1,0 +1,59 @@
+#infrastructure {
+    padding: 3rem 0;
+
+    .row {
+        > div {
+            &:nth-of-type(1) {
+                p {
+                    margin: 2rem 0 0;
+                }
+            }
+
+            &:nth-of-type(2) {
+                .carousel-container {
+                    position: relative;
+                    max-width: 100%;
+                    overflow: hidden;
+
+                    .carousel-slider {
+                        display: flex;
+                        transition: transform .8s ease-in-out;
+    
+                        .carousel-slide {
+                            flex: 0 0 100%;
+
+                            img {
+                                width: 100%;
+                            }
+                        }    
+                    }
+
+                    .btn-slider {
+                        position: absolute;
+                        bottom: 1.5rem;
+                        right: 1.5rem;
+                        z-index: 1;
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+
+                        button {
+                            width: 1rem;
+                            height: 1rem;
+                            border-radius: .375rem;
+                            background-color: #FFF;
+                            color: rgb(0,0,0);
+                            padding: 1rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 1.25rem;
+                            border: none;
+                            font-weight: 300;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
