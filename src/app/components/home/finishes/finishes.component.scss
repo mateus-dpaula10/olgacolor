@@ -28,6 +28,10 @@
                         align-items: center;
                         justify-content: space-between;
 
+                        h6 {
+                            font-weight: 600;
+                        }
+
                         span {
                             flex-shrink: 0;
                             border: 3px solid #FFF;

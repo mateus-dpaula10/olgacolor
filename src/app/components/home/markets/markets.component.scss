@@ -1,10 +1,6 @@
 #markets {
     padding: 5rem 0;
 
-    h4 {
-        color: rgb(0,0,0);
-    }
-
     #blocks {
         display: flex;
         flex-direction: column;
@@ -40,6 +36,7 @@
                 color: #FFF;
                 transition: all .1s ease-in-out;
                 cursor: pointer;
+                font-size: .8rem;
 
                 &:hover {
                     opacity: .5;
