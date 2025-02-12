@@ -2,11 +2,11 @@
     <div class="container">
         <app-dividing-line [width]="dynamicWidth" [bg]="dynamicBg" />
 
-        <h6>PRODUTOS</h6>
+        <h5>PRODUTOS</h5>
 
         <div id="title">
             <h1>Muito além do <strong>essencial:</strong></h1>
-            <h4 class="mt-4 mb-3">Descubra um universo de soluções para a construção civil.</h4>
+            <h3 class="mt-4 mb-3">Descubra um universo de soluções para a construção civil.</h3>
             <a routerLink="/pagina-inicial" class="btn btn-outline-dark rounded-pill">Todos produtos</a>
         </div>
 
@@ -22,7 +22,7 @@
                                 <ul>
                                     @for (li of block.details; track li) {
                                         <li>
-                                            <h2>{{ li.value }}</h2>
+                                            <h3>{{ li.value }}</h3>
                                             <p>{{ li.description }}</p>
                                         </li>
                                     }

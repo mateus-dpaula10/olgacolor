@@ -5,7 +5,7 @@
             background-color: #000;
             color: #FFF;
         
-            h6 {
+            h5 {
                 margin: 2rem 0;
             }
         
@@ -15,7 +15,29 @@
                         margin: 0;
 
                         img {
-                            margin-left: 2rem;
+                            @media (max-width: 410px) {
+                                margin-top: 2rem;
+                            }
+
+                            @media (min-width: 411px) and (max-width: 511px) {
+                                margin-left: 2rem;
+                            }
+
+                            @media (min-width: 512px) and (max-width: 627px) {
+                                margin-top: 2rem;
+                            }
+
+                            @media (min-width: 628px) and (max-width: 767px) {
+                                margin-left: 2rem;
+                            }
+
+                            @media (min-width: 768px) and (max-width: 1199px) {
+                                margin-top: 2rem;
+                            }
+
+                            @media (min-width: 1200px) {
+                                margin-left: 2rem;
+                            }
                         }    
                     }
                 }
