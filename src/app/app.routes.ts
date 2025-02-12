@@ -18,4 +18,8 @@ export const routes: Routes = [
         path: 'processos-producao', 
         loadComponent: () => import('./pages/processes-production/processes-production.component').then(mod => mod.ProcessesProductionComponent) 
     },
+    { 
+        path: 'processos-producao/extrusao', 
+        loadComponent: () => import('./pages/processes-production/extrusao/extrusao.component').then(mod => mod.ExtrusaoComponent) 
+    },
 ];
