@@ -20,7 +20,7 @@ export const routes: Routes = [
     },
     { 
         path: 'processos-producao/extrusao', 
-        loadComponent: () => import('./pages/processes-production/extrusao/extrusao.component').then(mod => mod.ExtrusaoComponent) 
+        loadComponent: () => import('./pages/processes-production/extrusion/extrusion.component').then(mod => mod.ExtrusionComponent) 
     },
     { 
         path: 'processos-producao/anodizacao', 

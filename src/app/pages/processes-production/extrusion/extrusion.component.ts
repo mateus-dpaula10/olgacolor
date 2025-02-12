@@ -5,11 +5,11 @@ import { FooterComponent } from "../../../components/footer/footer.component";
 import { MainComponent } from "../../../components/processes-production/extrusion/main/main.component";
 
 @Component({
-  selector: 'app-extrusao',
+  selector: 'app-extrusion',
   imports: [HeaderComponent, NewsletterComponent, FooterComponent, MainComponent],
-  templateUrl: './extrusao.component.html',
-  styleUrl: './extrusao.component.scss'
+  templateUrl: './extrusion.component.html',
+  styleUrl: './extrusion.component.scss'
 })
-export class ExtrusaoComponent {
+export class ExtrusionComponent {
   classScrolled: string = 'scrolled position-sticky'
 }
