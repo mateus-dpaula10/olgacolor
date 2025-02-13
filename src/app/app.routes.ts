@@ -30,4 +30,8 @@ export const routes: Routes = [
         path: 'processos-producao/pintura', 
         loadComponent: () => import('./pages/processes-production/painting/painting.component').then(mod => mod.PaintingComponent) 
     },
+    { 
+        path: 'processos-producao/jateamento', 
+        loadComponent: () => import('./pages/processes-production/blasting/blasting.component').then(mod => mod.BlastingComponent) 
+    },
 ];
