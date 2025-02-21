@@ -54,4 +54,8 @@ export const routes: Routes = [
         path: 'acabamentos', 
         loadComponent: () => import('./pages/finishes/finishes.component').then(mod => mod.FinishesComponent) 
     },
+    { 
+        path: 'informativo', 
+        loadComponent: () => import('./pages/informative/informative.component').then(mod => mod.InformativeComponent) 
+    },
 ];
