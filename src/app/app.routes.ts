@@ -42,4 +42,8 @@ export const routes: Routes = [
         path: 'processos-producao/usinagem', 
         loadComponent: () => import('./pages/processes-production/machining/machining.component').then(mod => mod.MachiningComponent) 
     },
+    { 
+        path: 'mercados', 
+        loadComponent: () => import('./pages/markets/markets.component').then(mod => mod.MarketsComponent) 
+    },
 ];
