@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NewsletterService } from '../../services/newsletter.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-newsletter',
@@ -11,8 +12,10 @@ import { NewsletterService } from '../../services/newsletter.service';
 export class NewsletterComponent {
   private fb = inject(FormBuilder)
   private newsletterService = inject(NewsletterService)
+  private snackbar = inject(MatSnackBar)
   
   newsletterForm: FormGroup
+  isLoading: boolean = false
 
   ngOnInit(): void {
     this.newsletterForm = this.fb.group({
@@ -35,14 +38,22 @@ export class NewsletterComponent {
       Equipe
       Olgacolor Alumínio
     `
+
+    this.isLoading = true
     
     this.newsletterService
       .sendEmail(email, 'Newsletter site!', emailBody).subscribe(
         () => {
-          alert("Notificação enviada por e-mail com sucesso!"),
+          this.snackbar.open("Notificação enviada por e-mail com sucesso!!", 'Fechar', { duration: 3000 })
           this.newsletterForm.reset()
         },
-        (error) => console.log("Erro ao enviar e-mail: " + error.message)
-      )
+        (error) => {
+          console.error("Erro ao enviar e-mail: " + error.message)
+          this.snackbar.open("Erro ao enviar e-mail!", 'Fechar', { duration: 3000 })
+        },
+        () => {
+          this.isLoading = false
+        }
+      ) 
   }
 }
