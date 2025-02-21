@@ -50,4 +50,8 @@ export const routes: Routes = [
         path: 'perfis', 
         loadComponent: () => import('./pages/profiles/profiles.component').then(mod => mod.ProfilesComponent) 
     },
+    { 
+        path: 'acabamentos', 
+        loadComponent: () => import('./pages/finishes/finishes.component').then(mod => mod.FinishesComponent) 
+    },
 ];
