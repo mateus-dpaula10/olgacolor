@@ -46,4 +46,8 @@ export const routes: Routes = [
         path: 'mercados', 
         loadComponent: () => import('./pages/markets/markets.component').then(mod => mod.MarketsComponent) 
     },
+    { 
+        path: 'perfis', 
+        loadComponent: () => import('./pages/profiles/profiles.component').then(mod => mod.ProfilesComponent) 
+    },
 ];
