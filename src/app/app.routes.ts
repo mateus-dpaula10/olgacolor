@@ -62,4 +62,8 @@ export const routes: Routes = [
         path: 'contato', 
         loadComponent: () => import('./pages/contact/contact.component').then(mod => mod.ContactComponent) 
     },
+    { 
+        path: 'catalogos', 
+        loadComponent: () => import('./pages/catalogs/catalogs.component').then(mod => mod.CatalogsComponent) 
+    },
 ];
