@@ -69,7 +69,7 @@ export class MainComponent {
 
     this.isLoading = true
 
-    this.contactService.sendEmail('mateus.dpaula10@gmail.com', 'Formulário de contato do site', emailBody).subscribe(
+    this.contactService.sendEmail('marketing@olgacolor.com.br', 'Formulário de contato do site', emailBody).subscribe(
       () => {
         this.snackbar.open("Formulário enviado com sucesso!", 'Fechar', { duration: 3000 })
         this.formContact.reset()
