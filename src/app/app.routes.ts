@@ -58,4 +58,8 @@ export const routes: Routes = [
         path: 'informativo', 
         loadComponent: () => import('./pages/informative/informative.component').then(mod => mod.InformativeComponent) 
     },
+    { 
+        path: 'contato', 
+        loadComponent: () => import('./pages/contact/contact.component').then(mod => mod.ContactComponent) 
+    },
 ];
