@@ -4,16 +4,19 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapsLoaderService } from '../../../services/google-maps-loader.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewsletterService } from '../../../services/newsletter.service';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-main',
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    NgxMaskDirective
   ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
+  providers: [provideNgxMask()]
 })
 export class MainComponent {
   constructor(
@@ -42,7 +45,7 @@ export class MainComponent {
       name: ['', Validators.required],
       company: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      telephone: ['', Validators.required],
+      cellphone: ['', Validators.required],
       message: ['', Validators.required],
       accept_receive: [false, Validators.required],
       radioDefault: ['', Validators.required],
@@ -61,7 +64,7 @@ export class MainComponent {
       Nome: ${payload.name},
       Empresa: ${payload.company},
       E-mail: ${payload.email},
-      Telefone: ${payload.telephone},
+      Telefone: ${payload.cellphone},
       Mensagem: ${payload.message},
       Aceita receber mensagens, promoções e informações: ${payload.accept_receive}
       Opção: ${payload.radioDefault}
