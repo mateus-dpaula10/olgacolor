@@ -10,4 +10,12 @@ import { DividingLineComponent } from "../../dividing-line/dividing-line.compone
 export class VisionComponent {
   dynamicWidth: number = 10
   dynamicBg: string = '#FFF'
+  video: any | null
+
+  ngOnInit(): void {
+    if (typeof window !== undefined) {
+      this.video = document.getElementById('myVideo')
+      this.video.play()
+    }
+  }
 }
