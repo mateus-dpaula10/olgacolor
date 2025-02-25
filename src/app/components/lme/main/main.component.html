@@ -30,23 +30,24 @@
                 <h4>Indicadores de fevereiro de 2025</h4>
                 <mat-form-field>
                     <mat-label>Selecione o mês</mat-label>
-                    <mat-select>
+                    <mat-select [(value)]="selectedMonth" (selectionChange)="onMonthChange()">
                         @for (month of months; track month) {
                             <mat-option [value]="month">{{ month }}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
             </div>
-            <mat-tab-group>
-                <mat-tab label="COBRE"> Content 1 </mat-tab>
-                <mat-tab label="ZINCO"> Content 2 </mat-tab>
-                <mat-tab label="ALUMÍNIO"> Content 3 </mat-tab>
-                <mat-tab label="CHUMBO"> Content 3 </mat-tab>
-                <mat-tab label="ESTANHO"> Content 3 </mat-tab>
-                <mat-tab label="NÍQUEL"> Content 3 </mat-tab>
-                <mat-tab label="DÓLAR"> Content 3 </mat-tab>
+            <mat-tab-group (selectedIndexChange)="onTabChange($event)">
+                @for (metal of metals; track metal) {
+                    <mat-tab [label]="metal"></mat-tab>
+                }
             </mat-tab-group>            
-            <!-- <canvas chart [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType"></canvas> -->
+            <canvas baseChart 
+                [datasets]="lineChartData.datasets" 
+                [labels]="lineChartData.labels" 
+                [options]="lineChartOptions" 
+                [type]="'line'">
+            </canvas>
         </div>
     </div>
 </div>
