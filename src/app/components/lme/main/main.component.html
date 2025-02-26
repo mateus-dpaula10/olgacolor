@@ -27,7 +27,7 @@
 
         <div class="row mt-5">
             <div class="d-flex justify-content-between">
-                <h4>Indicadores de fevereiro de 2025</h4>
+                <h4>Indicadores de {{ selectedMonth }}</h4>
                 <mat-form-field>
                     <mat-label>Selecione o mês</mat-label>
                     <mat-select [(value)]="selectedMonth" (selectionChange)="onMonthChange()">
@@ -36,6 +36,11 @@
                         }
                     </mat-select>
                 </mat-form-field>
+            </div>
+            <div>
+                @for (day of selectedDays; track day) {
+                    <p>{{ day.date }} - {{ day.price }}</p>
+                }
             </div>
             <mat-tab-group (selectedIndexChange)="onTabChange($event)">
                 @for (metal of metals; track metal) {
@@ -48,6 +53,42 @@
                 [options]="lineChartOptions" 
                 [type]="'line'">
             </canvas>
+            <h4 class="mt-5">Valores Diários</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (price of dailyPrices; track price) {
+                            <tr>
+                                <td>{{ price.date }}</td>
+                                <td>{{ price.price | currency: 'USD' }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="mt-5">Média Semanal</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Semana</th>
+                        <th>Média de Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (week of weeklyAverages; track week) {
+                        <tr>
+                            <td>{{ week.week }}</td>
+                            <td>{{ week.avgPrice | currency:'USD' }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

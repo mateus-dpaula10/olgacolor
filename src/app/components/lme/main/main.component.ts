@@ -4,13 +4,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { AluminumService } from '../../../services/aluminum.service';
 import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { CommonModule } from '@angular/common';
+import { RateDataInterface } from '../../../interfaces/rate-data.interface';
+
+type MetalType = "COP" | "ZN" | "AL" | "PB" | "SN" | "NI" | "USD";
 
 @Component({
   selector: 'app-main',
   imports: [
     MatTabsModule,
     MatSelectModule,
-    BaseChartDirective
+    BaseChartDirective,
+    CommonModule
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
@@ -31,7 +36,7 @@ export class MainComponent {
   }
   public lineChartOptions: ChartOptions = { responsive: true }
 
-  months: any[] = [
+  months: string[] = [
     'Jan/25',
     'Fev/25',
     'Mar/25',
@@ -46,52 +51,72 @@ export class MainComponent {
     'Dez/25',
   ]
   selectedMonth = 'Fev/25'
+  selectedDays: any[] = []
 
-  metals: any[] = [
-    'European Euro',
-    'Gold',
-    'Silver',
+  metals: string[] = [
+    'Cobre',
+    'Zinco',
+    'Alumínio',
+    'Chumbo',
+    'Estanho',
+    'Níquel',
     'Dólar'
   ]
-  metalMapping: Record<string, string> = {
-    'European Euro': 'EUR',
-    'Gold': 'XAU',
-    'Silver': 'XAG',
+  metalMapping: Record<string, MetalType> = {
+    'Cobre': 'COP',
+    'Zinco': 'ZN',
+    'Alumínio': 'AL',
+    'Chumbo': 'PB',
+    'Estanho': 'SN',
+    'Níquel': 'NI',
     'Dólar': 'USD'
   }
-  selectedMetal = 'European Euro'
+  selectedMetal = 'Cobre'
+
+  dailyPrices: { date: string, price: number }[] = []
+  weeklyAverages: { week: string, avgPrice: number }[] = []
 
   ngOnInit(): void {
     this.fetchMetalData()
   }
 
   fetchMetalData(): void {
-    this.aluminumService.getAluminum().subscribe(data => {
-      const metalKey = this.metalMapping[this.selectedMetal]
-      let metalPrice: number | undefined
-      metalPrice = data.rates?.[metalKey]
+    const metalKey = this.metalMapping[this.selectedMetal]
+    const selectedMetalData = this.aluminumService.getRates().map((item: RateDataInterface) => ({
+      date: item.date,
+      price: item.rates[metalKey]
+    }))
+    if (selectedMetalData.length > 0) {
+      this.dailyPrices = selectedMetalData
+      this.calculateWeeklyAverages()      
+      const variations = this.calculateVariations(this.dailyPrices)      
+      this.updateChart(variations)
+    } else {
+      console.error(`Preço para ${this.selectedMetal} não encontrado na resposta da API`)
+    }
+  }
 
-      if (metalPrice !== undefined) {
-        const historicalPrice = [
-          { date: '2025-02-20T00:00:00Z', price: metalPrice - 0.1 },
-          { date: '2025-02-21T00:00:00Z', price: metalPrice - 0.05 },
-          { date: new Date().toISOString(), price: metalPrice }
-        ]
-        
-        const variations = this.calculateVariations(historicalPrice)
-
-        this.updateChart(variations)
-      } else {
-        console.error(`Preço para ${this.selectedMetal} não encontrado na resposta da API`)
-      }
+  calculateWeeklyAverages(): void {
+    const groupedByWeek: Record<string, number[]> = {}
+    this.dailyPrices.forEach(({ date, price }) => {
+      const week = this.getWeekFromDate(date)
+      if (!groupedByWeek[week]) groupedByWeek[week] = []
+      groupedByWeek[week].push(price)
     })
+
+    this.weeklyAverages = Object.keys(groupedByWeek).map(week => ({
+      week,
+      avgPrice: groupedByWeek[week].reduce((a, b) => a + b, 0) / groupedByWeek[week].length
+    }))
+  }
+
+  getWeekFromDate(date: string): string {
+    const d = new Date(date)
+    const week = Math.ceil(d.getDate() / 7)
+    return `Semana ${week}/${d.getMonth() + 1}`
   }
 
   calculateVariations(data: any[]): any {
-    if (!Array.isArray(data) || data.length === 0) {
-      return { dailyChange: [], weeklyChange: [], monthlyChange: [] }
-    }
-
     const sortedData = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
     const dailyChange = sortedData.map((item, index, arr) => ({
@@ -99,20 +124,10 @@ export class MainComponent {
       change: index > 0 ? item.price - arr[index - 1].price : 0
     }))
 
-    const weeklyChange = sortedData.filter((_, index) => index % 7 === 0).map((item, index, arr) => ({
-      date: item.date,
-      change: index > 0 ? item.price - arr[index - 1].price : 0
-    }))
-
-    const monthlyChange = sortedData.filter((_, index) => index % 30 === 0).map((item, index, arr) => ({
-      date: item.date,
-      change: index > 0 ? item.price - arr[index - 1].price : 0
-    }))
-
-    return { dailyChange, weeklyChange, monthlyChange }
+    return { dailyChange }
   }
 
-  updateChart(variations: any) {
+  updateChart(variations: any): void {
     this.lineChartData = {
       labels: variations.dailyChange.map((v: any) => v.date),
       datasets: [
@@ -122,27 +137,43 @@ export class MainComponent {
           borderColor: 'blue',
           backgroundColor: 'rgba(0, 0, 255, 0.2)',
           fill: true
-        },
-        {
-          data: variations.weeklyChange.map((v: any) => v.change),
-          label: 'Variação Semanal',
-          borderColor: 'green',
-          backgroundColor: 'rgba(0, 255, 0, 0.2)',
-          fill: true
-        },
-        {
-          data: variations.monthlyChange.map((v: any) => v.change),
-          label: 'Variação Mensal',
-          borderColor: 'red',
-          backgroundColor: 'rgba(255, 0, 0, 0.2)',
-          fill: true
         }
       ]
     }
   }
 
   onMonthChange(): void {
-    this.fetchMetalData()
+    this.selectedDays = this.filterDataByMonth(this.selectedMonth)
+  }
+
+  filterDataByMonth(month: string): any[] {
+    const monthMapping: Record<string, number> = {
+      'Jan/25': 0,
+      'Fev/25': 1,
+      'Mar/25': 2,
+      'Abr/25': 3,
+      'Mai/25': 4,
+      'Jun/25': 5,
+      'Jul/25': 6,
+      'Ago/25': 7,
+      'Set/25': 8,
+      'Out/25': 9,
+      'Nov/25': 10,
+      'Dez/25': 11,
+    }    
+
+    const monthIndex = monthMapping[month]
+    const metalKey = this.metalMapping[this.selectedMetal]
+
+    return this.aluminumService.getRates().filter((rate) => {
+      const date = new Date(rate.date)
+      return date.getMonth() === monthIndex
+    }).map(rate => {
+      return {
+        date: rate.date,
+        price: rate.rates[metalKey]
+      }
+    })
   }
 
   onTabChange(index: number): void {
