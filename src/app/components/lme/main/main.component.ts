@@ -82,18 +82,31 @@ export class MainComponent {
 
   fetchMetalData(): void {
     const metalKey = this.metalMapping[this.selectedMetal]
-    const selectedMetalData = this.aluminumService.getRates().map((item: RateDataInterface) => ({
-      date: item.date,
-      price: item.rates[metalKey]
-    }))
-    if (selectedMetalData.length > 0) {
-      this.dailyPrices = selectedMetalData
+    const selectedMonthData = this.filterDataByMonth(this.selectedMonth)
+
+    if (selectedMonthData.length > 0) {
+      this.dailyPrices = selectedMonthData.map((day) => ({
+        ...day,
+        hourlyPrices: this.generateHourlyPrices(day.price)
+      }))
       this.calculateWeeklyAverages()      
       const variations = this.calculateVariations(this.dailyPrices)      
       this.updateChart(variations)
     } else {
       console.error(`Preço para ${this.selectedMetal} não encontrado na resposta da API`)
     }
+  }
+
+  generateHourlyPrices(basePrice: number): { time: string; price: number }[] {
+    const prices = []
+    for (let hour = 0; hour < 24; hour++) {
+      const variation = (Math.random() - 0.5) * 0.1 * basePrice
+      prices.push({
+        time: `${hour.toString().padStart(2, '0')}:00`,
+        price: parseFloat((basePrice + variation).toFixed(2))
+      })
+    }
+    return prices
   }
 
   calculateWeeklyAverages(): void {
@@ -117,23 +130,44 @@ export class MainComponent {
   }
 
   calculateVariations(data: any[]): any {
-    const sortedData = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    if (!data || data.length === 0) return { dailyChange: [] }
 
-    const dailyChange = sortedData.map((item, index, arr) => ({
-      date: item.date,
-      change: index > 0 ? item.price - arr[index - 1].price : 0
-    }))
+    const sortedData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
+    const dailyChange = sortedData.map((item, index, arr) => {
+      if (index === 0) {
+        return { date: item.date, change: 0, percentageChange: 0 }
+      }
+
+      const previousPrice = arr[index - 1].price
+      const change = item.price - previousPrice
+      const percentageChange = ((change / previousPrice) * 100).toFixed(2)
+
+      return {
+        date: item.date,
+        change: parseFloat(change.toFixed(2)),
+        percentageChange: parseFloat(percentageChange)
+      }
+    })
+    
     return { dailyChange }
   }
 
   updateChart(variations: any): void {
     this.lineChartData = {
-      labels: variations.dailyChange.map((v: any) => v.date),
+      labels: variations.dailyChange.flatMap((v: any) => 
+        v.hourlyPrices
+          ? v.hourlyPrices.map((h: any) => `${v.date} ${h.time}`)
+          : [v.date]
+      ),
       datasets: [
         {
-          data: variations.dailyChange.map((v: any) => v.change),
-          label: 'Variação Diária',
+          data: variations.dailyChange.flatMap((v: any) =>
+            v.hourlyPrices
+              ? v.hourlyPrices.map((h: any) => h.price)
+              : [v.change]
+          ),
+          label: 'Variação por Hora',
           borderColor: 'blue',
           backgroundColor: 'rgba(0, 0, 255, 0.2)',
           fill: true
