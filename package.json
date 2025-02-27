@@ -5,9 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:ssr": "ng run olgacolor:server",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:olgacolor": "node dist/olgacolor/server/server.mjs"
+    "serve:ssr:olgacolor": "npm run build:ssr && node dist/olgacolor/server/server.mjs"
   },
   "private": true,
   "dependencies": {
