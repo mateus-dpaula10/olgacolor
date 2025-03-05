@@ -54,21 +54,21 @@ export class MainComponent {
   selectedDays: any[] = []
 
   metals: string[] = [
-    'Cobre',
-    'Zinco',
+    // 'Cobre',
+    // 'Zinco',
     'Alumínio',
-    'Chumbo',
-    'Estanho',
-    'Níquel',
+    // 'Chumbo',
+    // 'Estanho',
+    // 'Níquel',
     'Dólar'
   ]
   metalMapping: Record<string, MetalType> = {
-    'Cobre': 'COP',
-    'Zinco': 'ZN',
+    // 'Cobre': 'COP',
+    // 'Zinco': 'ZN',
     'Alumínio': 'AL',
-    'Chumbo': 'PB',
-    'Estanho': 'SN',
-    'Níquel': 'NI',
+    // 'Chumbo': 'PB',
+    // 'Estanho': 'SN',
+    // 'Níquel': 'NI',
     'Dólar': 'USD'
   }
   selectedMetal = 'Cobre'
