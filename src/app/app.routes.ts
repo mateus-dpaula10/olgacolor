@@ -51,6 +51,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/civil-construction/civil-construction.component').then(mod => mod.CivilConstructionComponent) 
     },
     { 
+        path: 'mercados/linha-moveleira', 
+        loadComponent: () => import('./pages/furniture-line/furniture-line.component').then(mod => mod.FurnitureLineComponent) 
+    },
+    { 
         path: 'perfis', 
         loadComponent: () => import('./pages/profiles/profiles.component').then(mod => mod.ProfilesComponent) 
     },

@@ -1,4 +1,4 @@
-#civil_construction_main {
+#furniture_line_main {
     padding: 3rem 0;
 
     .img {
@@ -46,7 +46,7 @@
         }
     }
 
-    #residential_systems {
+    #furniture_line {
         .img_content {
             width: 15rem;
             max-width: 100%;
@@ -61,17 +61,19 @@
             position: relative;
             
             @media (min-width: 992px) {
-                &::after {
-                    content: '';
-                    position: relative;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    height: 1px;
-                    width: 50%;
-                    margin-inline: auto;
-                    margin-top: 5rem;
-                    background-color: #000;
+                &:nth-of-type(1) {
+                    &::after {
+                        content: '';
+                        position: relative;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        height: 1px;
+                        width: 50%;
+                        margin-inline: auto;
+                        margin-top: 5rem;
+                        background-color: #000;
+                    }
                 }
             }
 
