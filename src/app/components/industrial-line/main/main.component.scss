@@ -1,4 +1,4 @@
-#furniture_line_main {
+#industrial_line_main {
     padding: 3rem 0;
 
     .img {
@@ -48,7 +48,7 @@
 
     #furniture_line {
         .img_content {
-            width: 15rem;
+            width: 10rem;
             max-width: 100%;
         }
 
@@ -61,7 +61,7 @@
             position: relative;
             
             @media (min-width: 992px) {
-                &:nth-of-type(1) {
+                &:not(:last-of-type) {
                     &::after {
                         content: '';
                         position: relative;

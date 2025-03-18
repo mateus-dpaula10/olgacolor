@@ -51,8 +51,16 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/civil-construction/civil-construction.component').then(mod => mod.CivilConstructionComponent) 
     },
     { 
+        path: 'mercados/envidracamento', 
+        loadComponent: () => import('./pages/glazing/glazing.component').then(mod => mod.GlazingComponent) 
+    },
+    { 
         path: 'mercados/linha-moveleira', 
         loadComponent: () => import('./pages/furniture-line/furniture-line.component').then(mod => mod.FurnitureLineComponent) 
+    },
+    { 
+        path: 'mercados/linha-industrial', 
+        loadComponent: () => import('./pages/industrial-line/industrial-line.component').then(mod => mod.IndustrialLineComponent) 
     },
     { 
         path: 'perfis', 
