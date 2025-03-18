@@ -1,4 +1,19 @@
-<nav class="navbar navbar-expand-lg" id="header" [ngClass]="headerClass">
+<nav class="navbar navbar-expand-lg flex-column" id="header" [ngClass]="headerClass">
+    <div class="container">
+        <div>
+            <a routerLink="/"><i class="bi bi-person-lock"></i>ACESSE A ÁREA DO CLIENTE</a> 
+            <span class="ms-2 d-sm-none">|</span>
+        </div>
+        <span class="d-none d-sm-block">|</span>
+        <div>
+            <p class="mb-0">FALE CONOSCO</p>
+            <a routerLink="/"><i class="bi bi-linkedin"></i></a>
+            <a routerLink="/"><i class="bi bi-instagram"></i></a>
+            <a routerLink="/"><i class="bi bi-youtube"></i></a>
+        </div>
+        
+    </div>
+
     <div class="container">
         <a class="navbar-brand" routerLink="/pagina-inicial">
             <img class="img-fluid" src="assets/images/logo_olgacolor_white.avif" alt="Logo da Olgacolor">
@@ -9,9 +24,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="/pagina-inicial">Home</a>
-                </li>
+                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" routerLink="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Institucional
@@ -45,7 +60,7 @@
                         <li><a class="dropdown-item" routerLink="/acabamentos">Acabamentos</a></li>                        
                     </ul>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" routerLink="/informativo">Informativo</a>
                 </li>
                 <li class="nav-item">
@@ -53,7 +68,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/catalogos">Catálogos</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" routerLink="#">Obras</a>
                 </li>
