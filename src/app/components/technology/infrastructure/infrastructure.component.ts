@@ -12,7 +12,7 @@ export class InfrastructureComponent {
       src: 'assets/images/technology/slider-infrastructure-1.avif'
     },
     {
-      src: 'assets/images/technology/slider-infrastructure-2.png'
+      src: 'assets/images/technology/slider-infrastructure-2.jpg'
     },
   ]
 

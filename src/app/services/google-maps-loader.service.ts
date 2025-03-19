@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleMapsLoaderService {
   private scriptLoaded = false
+  private loadPromise!: Promise<void>
 
   load(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (this.scriptLoaded) {
-        resolve()
-        return
-      }
+    if (this.scriptLoaded) {
+      return this.loadPromise
+    }
 
+    this.loadPromise = new Promise((resolve, reject) => {
       if (typeof document !== 'undefined') {
         if (document.querySelector('script[src*="maps.googleapis.com"]')) {
           this.scriptLoaded = true
@@ -21,7 +22,7 @@ export class GoogleMapsLoaderService {
         }
 
         const script = document.createElement('script')
-        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-Kg1YcGHYnJc3FUbx3YnW3XA3eYJgdLU'
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&libraries=places`
         script.async = true
         script.defer = true
 
@@ -30,9 +31,14 @@ export class GoogleMapsLoaderService {
           resolve()
         }
 
-        script.onerror = () => reject('Erro ao carregar Google Maps API')
+        script.onerror = (error) => {
+          reject('Erro ao carregar Google Maps API')
+        }
+
         document.head.appendChild(script)
       }
     })
+
+    return this.loadPromise
   }
 }
