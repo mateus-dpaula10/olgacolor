@@ -1,0 +1,39 @@
+#products_main {
+    padding: 5rem 0;
+
+    .product {
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+        border-radius: .25rem;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+
+        .product-image {
+            padding: .5rem 1rem;
+
+            img {
+                max-width: 150px;
+            }
+        }
+
+        .product-content {
+            padding: .5rem 1rem;
+        }
+
+        .product-price {
+            background-color: #000;
+            color: #fff;
+            padding: 0.5rem;
+            opacity: .9;
+            transition: all .35s ease-in-out;
+
+            &:hover {
+                opacity: 1;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -85,5 +85,9 @@ export const routes: Routes = [
     { 
         path: 'lme', 
         loadComponent: () => import('./pages/lme/lme.component').then(mod => mod.LmeComponent) 
+    },
+    { 
+        path: 'produtos', 
+        loadComponent: () => import('./pages/products/products.component').then(mod => mod.ProductsComponent) 
     }
 ];

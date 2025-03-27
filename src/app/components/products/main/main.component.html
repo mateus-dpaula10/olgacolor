@@ -1,0 +1,22 @@
+<div id="products_main">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+            @for(product of products; track product.id) {
+                <div class="col mt-2">
+                    <div class="product">
+                        <div class="product-image">
+                            <img [src]="'assets/' + product.image" [alt]="product.name">
+                        </div>
+                        <div class="product-content">
+                            <h5>{{ product.name }}</h5>
+                            <small>{{ product.description }}</small>
+                        </div>
+                        <div class="product-price">
+                            <span>{{ toCurrency(product.price) }}</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
