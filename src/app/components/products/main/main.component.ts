@@ -12,9 +12,8 @@ export class MainComponent {
   products: any[] = []
   productsFiltered: any[] = []
   productSelected: any = null
-  categories: string[] = []
-  subCategories: string[] = []
   searchTerm: string = ''
+  categories: any[] = []
 
   constructor(
     private productsService: ProductsService
@@ -25,16 +24,18 @@ export class MainComponent {
       this.products = products  
       this.productsFiltered = products
 
+      const mainCategorySet = new Set<string>()
+
       products.forEach((product: any) => {
-        const categoryParts = product.category.split(/,|>/).map((c: string) => c.trim())
+        const paths = product.category.split(/,|>/)
+        const mainCategory = paths[0].toUpperCase().trim()
 
-        if (categoryParts.length === 0) return
-
-        this.categories.push(categoryParts[0])
-        this.categories = [...new Set(this.categories)].map((c: string) => c.toUpperCase())
-
-        this.subCategories.push(categoryParts.slice(1))
-        this.subCategories = [...new Set(this.subCategories)]
+        if (!mainCategorySet.has(mainCategory)) {
+          mainCategorySet.add(mainCategory)
+          this.categories.push({
+            mainCategory
+          })
+        }
       })
     })
   } 

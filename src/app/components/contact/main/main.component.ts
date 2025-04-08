@@ -43,7 +43,7 @@ export class MainComponent {
       cellphone: ['', Validators.required],
       message: ['', Validators.required],
       accept_receive: [false, Validators.required],
-      radioDefault: ['', Validators.required],
+      radioDefault: [''],
     })
   }
 
@@ -95,14 +95,22 @@ export class MainComponent {
 
     const payload = this.formContact.value
     payload.accept_receive = payload.accept_receive ? 'Sim' : 'Não'
-    const emailBody = `
+    let emailBody = `
       Nome: ${payload.name},
       Empresa: ${payload.company},
       E-mail: ${payload.email},
       Telefone: ${payload.cellphone},
       Mensagem: ${payload.message},
-      Aceita receber mensagens, promoções e informações: ${payload.accept_receive}
-      Opção: ${payload.radioDefault}
+      Aceita receber mensagens, promoções e informações: ${payload.accept_receive},
+      Opção: ${
+        payload.radioDefault === 'construcao_civil' ? 'Contrução Civil' :
+        payload.radioDefault === 'envidracamento' ? 'Envidraçamento' :
+        payload.radioDefault === 'moveleiro' ? 'Moveleiro' :
+        payload.radioDefault === 'industrial' ? 'Industrial' :
+        payload.radioDefault === 'estrutura_fotovoltaicas' ? 'Estrutura Fotovoltaicas' :
+        payload.radioDefault === 'implementos_rodoviarios' ? 'Implementos Rodoviários' :
+        'Não informado'
+      }
     `
 
     this.isLoading = true

@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NewsletterService {
-  private apiUrl = 'https://olgacolor-email-api.onrender.com/send-email'
+  // private apiUrl = 'https://olgacolor-email-api.onrender.com/send-email'
+  private apiUrl = 'http://localhost:8000/api/send-email'
 
   constructor(private http: HttpClient) { }
 
