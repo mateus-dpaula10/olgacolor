@@ -39,12 +39,18 @@
             </div>
 
             <div class="mt-4 mt-lg-0 col-lg-{{productSelected ? 6 : 9}}">   
-                @for (product of productsFiltered; track product.id) {                        
-                    <div class="product" (click)="onProductClick(product)" title="Clique para ver mais detalhes do produto {{ product.name }}">
-                        <img [src]="product.image_small" [alt]="product.name">
-                        <h5>{{ product.name }}</h5>
-                    </div>
+                @if (route.snapshot.queryParams['category']) {
+                  <h5>Produtos da categoria: {{ route.snapshot.queryParams['category'].toUpperCase() }}</h5>
                 }
+
+                <div>
+                  @for (product of productsFiltered; track product.id) {                        
+                    <div class="product" (click)="onProductClick(product)" title="Clique para ver mais detalhes do produto {{ product.name }}">
+                      <img [src]="product.image_small" [alt]="product.name">
+                      <h5>{{ product.name }}</h5>
+                    </div>
+                  }
+                </div>
             </div>
 
             @if (productSelected) {

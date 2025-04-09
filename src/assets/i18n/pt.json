@@ -1,4 +1,11 @@
 {
-    "TITLE": "Uma indústria que <br class='d-none d-lg-block'>define <strong>padrões.</strong>",
-    "SUBTITLE": "Uma das maiores fabricantes de Perfis de Alumínio do País."
+    "paginaInicial": {
+        "blocoInicialVideo": {
+            "titulo": "Uma indústria que <br class='d-none d-lg-block'>define <strong>padrões.</strong>",
+            "subtitulo": "Uma das maiores fabricantes de Perfis de Alumínio do País."
+        },
+        "blocoVisao": {
+            "titulo": "Qualidade é o nosso perfil. Selos da visão"
+        }
+    }
 }  

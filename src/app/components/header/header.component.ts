@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +10,8 @@ import { RouterLink } from '@angular/router';
 })
 export class HeaderComponent {
   @Input() customClass: string = ''
+
+  constructor(private router: Router) {}
 
   headerClass: string = ''
 
@@ -24,5 +26,9 @@ export class HeaderComponent {
     } else {
       this.headerClass = this.customClass || ''
     }
+  }
+
+  onPerfilClick(category: string) {
+    this.router.navigate(['/produtos'], { queryParams: { category: category.toUpperCase() } })
   }
 }

@@ -37,19 +37,28 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" routerLink="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mercados
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLink="/mercados">Mercados</a></li>                        
+                        <li><a class="dropdown-item" routerLink="/mercados">Mercados</a></li>                                            
+                        <li><a class="dropdown-item" routerLink="/mercados/construcao-civil">Construção Civil</a></li>                                            
+                        <li><a class="dropdown-item" routerLink="/mercados/linha-moveleira">Perfis Moveleiros</a></li>                                            
+                        <li><a class="dropdown-item" routerLink="/mercados/linha-industrial">Perfis Industriais</a></li>                                            
+                        <li><a class="dropdown-item" routerLink="/mercados/envidracamento">Vidraçaria</a></li>                                            
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" routerLink="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Perfis
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLink="/perfis">Perfis</a></li>                        
+                        <li><a class="dropdown-item" routerLink="/perfis">Perfis</a></li>       
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Construção Civil')">Perfis Construção Civil</a></li>                        
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Vidraçaria')">Perfis Vidraçaria</a></li>                        
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Moveleira')">Perfis Moveleiros</a></li>                        
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Industrial')">Perfis Industriais</a></li>                       
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Tabelados')">Perfis Tabelados</a></li>                     
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -58,6 +67,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" routerLink="/acabamentos">Acabamentos</a></li>                        
+                        <li><a class="dropdown-item" routerLink="/acabamentos">Anodização</a></li>                        
+                        <li><a class="dropdown-item" routerLink="/acabamentos">Efeito Madeira</a></li>                        
+                        <li><a class="dropdown-item" routerLink="/acabamentos">Pintura Eletrostática a Pó</a></li>                        
                     </ul>
                 </li>
                 <!-- <li class="nav-item">

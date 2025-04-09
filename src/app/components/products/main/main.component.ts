@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { FormsModule } from '@angular/forms';
-
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-main',
   imports: [FormsModule],
@@ -16,10 +16,22 @@ export class MainComponent {
   categories: any[] = []
 
   constructor(
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    public route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    if (this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url.includes('produtos')) {
+          if (this.router.url === this.router.url) {
+            this.onCategorySelect(this.route.snapshot.queryParams['category'])
+          }
+        }
+      }
+    }))
+
     this.productsService.getProducts().subscribe((products: any) => {
       this.products = products  
       this.productsFiltered = products
@@ -49,7 +61,9 @@ export class MainComponent {
   }
 
   onCategorySelect(category: string) {
+    this.productSelected = null
     this.productsFiltered = this.products.filter((product: any) => product.category.toLowerCase().includes(category.toLowerCase()))
+    this.router.navigate(['/produtos'], { queryParams: { category: category.toUpperCase() } })
   }
 
   onProductClick(product: any) {
