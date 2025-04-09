@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-header',
   imports: [RouterLink, CommonModule],
@@ -10,8 +10,8 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class HeaderComponent {
   @Input() customClass: string = ''
-
-  constructor(private router: Router) {}
+  isDropdownOpen: boolean = false
+  constructor(private router: Router, private translate: TranslateService, private cdr: ChangeDetectorRef) {}
 
   headerClass: string = ''
 
@@ -30,5 +30,15 @@ export class HeaderComponent {
 
   onPerfilClick(category: string) {
     this.router.navigate(['/produtos'], { queryParams: { category: category.toUpperCase() } })
+  }
+
+  changeLanguage(language: string) {
+    this.translate.use(language)
+    this.cdr.detectChanges()
+    this.isDropdownOpen = false
+  }
+
+  openDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen
   }
 }

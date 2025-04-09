@@ -1,6 +1,23 @@
 <nav class="navbar navbar-expand-lg flex-column" id="header" [ngClass]="headerClass">
     <div class="container">
         <div>
+            <i class="bi bi-globe" title="Mudar idioma" (click)="openDropdown()"></i>
+            @if (isDropdownOpen) {
+                <div class="dropdown">
+                    <ul>
+                        <li (click)="changeLanguage('pt')">
+                            Português
+                        </li>
+                        <li (click)="changeLanguage('en')">
+                            Inglês
+                        </li>
+                    </ul>
+                </div>
+            }
+            <span class="ms-2 d-sm-none">|</span>
+        </div>
+        <span class="d-none d-sm-block">|</span>
+        <div>
             <a routerLink="/"><i class="bi bi-person-lock"></i>ACESSE A ÁREA DO CLIENTE</a> 
             <span class="ms-2 d-sm-none">|</span>
         </div>
@@ -10,8 +27,7 @@
             <a routerLink="/"><i class="bi bi-linkedin"></i></a>
             <a routerLink="/"><i class="bi bi-instagram"></i></a>
             <a routerLink="/"><i class="bi bi-youtube"></i></a>
-        </div>
-        
+        </div>        
     </div>
 
     <div class="container">
