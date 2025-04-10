@@ -1,0 +1,79 @@
+<div id="civil-construction">
+    <app-header [customClass]="classScrolled" />
+
+    <div class="container" id="add-markets">
+        <h1 class="mb-5">Adicionar Mercados</h1>
+
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-lg-6">
+                    <form [formGroup]="form">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" class="form-control" id="name" formControlName="name">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="description">Descrição</label>
+                            <textarea class="form-control" id="description" formControlName="description" rows="5"></textarea>
+                        </div>
+
+                        <h5 class="mt-5 mb-3">Características de desempenhos</h5>
+
+                        <div class="form-group mt-2">
+                            <label for="air-permeability">Permeabilidade ao ar</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="air-permeability" formControlName="air_permeability">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="water-tightness">Estanquidade à água</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="water-tightness" formControlName="water_tightness">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="wind-resistance">Resistência ao vento</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="wind-resistance" formControlName="wind_resistance">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="acoustic-insulation">Isolamento acústico</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="acoustic-insulation" formControlName="acoustic_insulation">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="thermal-transmittance">Transmitáncia térmica</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="thermal-transmittance" formControlName="thermal_transmittance">
+                        </div>
+
+                        <h5 class="mt-5 mb-3">Dimensões</h5>
+
+                        <div class="form-group mt-2">
+                            <label for="glazing-thickness">Envidraçamento (espessura máxima em mm)</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="glazing-thickness" formControlName="glazing_thickness">
+                        </div>
+
+                        <h6 class="mt-5 mb-3">Dimensões máximas</h6>
+
+                        <div class="form-group mt-2">
+                            <label for="width">Largura da folha (L em mm)</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="width" formControlName="width">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="height">Altura da folha (H em mm)</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="height" formControlName="height">
+                        </div>
+
+                        <div class="form-group mt-5">
+                            <label for="weight">Peso máximo por folha</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="weight" formControlName="weight">
+                        </div>
+                        <div class="form-group mt-5">
+                            <label for="theoretical-thickness">Espessura média teórica</label>
+                            <input type="number" step="1" min="0" max="10" class="form-control" id="theoretical-thickness" formControlName="theoretical_thickness">
+                        </div>
+
+                        <button class="btn btn-primary mt-5" (click)="createMarket()">Criar</button>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>    
+
+    <app-newsletter />
+    <app-footer />
+</div>

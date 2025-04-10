@@ -11,7 +11,11 @@ import { TranslateService } from '@ngx-translate/core';
 export class HeaderComponent {
   @Input() customClass: string = ''
   isDropdownOpen: boolean = false
-  constructor(private router: Router, private translate: TranslateService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private router: Router, 
+    private translate: TranslateService, 
+    private cdr: ChangeDetectorRef
+  ) {}
 
   headerClass: string = ''
 

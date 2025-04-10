@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
     {
@@ -47,6 +48,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/markets/markets.component').then(mod => mod.MarketsComponent) 
     },
     { 
+        path: 'mercados/adicionar-mercados', 
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/markets/add-markets/add-markets.component').then(mod => mod.AddMarketsComponent) 
+    },
+    { 
         path: 'mercados/construcao-civil', 
         loadComponent: () => import('./pages/civil-construction/civil-construction.component').then(mod => mod.CivilConstructionComponent) 
     },
@@ -61,6 +67,10 @@ export const routes: Routes = [
     { 
         path: 'mercados/linha-industrial', 
         loadComponent: () => import('./pages/industrial-line/industrial-line.component').then(mod => mod.IndustrialLineComponent) 
+    },
+    {
+        path: 'mercados/categorias',
+        loadComponent: () => import('./pages/markets/categories/categories.component').then(mod => mod.CategoriesComponent)
     },
     { 
         path: 'perfis', 
@@ -89,5 +99,9 @@ export const routes: Routes = [
     { 
         path: 'produtos', 
         loadComponent: () => import('./pages/products/products.component').then(mod => mod.ProductsComponent) 
+    },
+    {
+        path: 'login',
+        loadComponent: () => import('./pages/login/login.component').then(mod => mod.LoginComponent)
     }
 ];
