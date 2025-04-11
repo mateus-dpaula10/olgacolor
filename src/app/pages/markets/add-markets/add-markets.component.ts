@@ -19,29 +19,43 @@ export class AddMarketsComponent {
 
   constructor(private fb: FormBuilder, private marketsService: MarketsService, private snackBar: MatSnackBar) {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      air_permeability: ['', Validators.required],
-      water_tightness: ['', Validators.required],
-      wind_resistance: ['', Validators.required],
-      acoustic_insulation: ['', Validators.required],
-      thermal_transmittance: ['', Validators.required],
-      glazing_thickness: ['', Validators.required],
-      width: ['', Validators.required],
-      height: ['', Validators.required],
-      weight: ['', Validators.required],
-      theoretical_thickness: ['', Validators.required],
+      name: [''],
+      description: [''],
+      air_permeability: [''],
+      water_tightness: [''],
+      wind_resistance: [''],
+      acoustic_insulation: [''],
+      thermal_transmittance: [''],
+      glazing_thickness: [''],
+      width: [''],
+      height: [''],
+      weight: [''],
+      theoretical_thickness: ['']
     })
   }
 
   createMarket() {
-    const payload = this.form.value
+    const formData = new FormData()
 
-    this.marketsService.createMarket(payload).subscribe((res: any) => {
+    Object.keys(this.form.value).forEach(key => {
+      formData.append(key, this.form.value[key])
+    })
+
+    this.selectedFiles.forEach(file => {
+      formData.append('images[]', file)
+    })
+
+    this.marketsService.createMarket(formData).subscribe((res: any) => {
       this.snackBar.open('Produto criado com sucesso', 'Fechar', {
         duration: 3000
       })
       this.form.reset()
     })
+  }
+
+  selectedFiles: File[] = []
+
+  onFilesSelected(event: any) {
+    this.selectedFiles = Array.from(event.target.files)
   }
 }

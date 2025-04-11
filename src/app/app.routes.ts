@@ -48,6 +48,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/markets/markets.component').then(mod => mod.MarketsComponent) 
     },
     { 
+        path: 'mercados/todos-mercados', 
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/markets/all-markets/all-markets.component').then(mod => mod.AllMarketsComponent) 
+    },
+    { 
         path: 'mercados/adicionar-mercados', 
         canActivate: [authGuard],
         loadComponent: () => import('./pages/markets/add-markets/add-markets.component').then(mod => mod.AddMarketsComponent) 

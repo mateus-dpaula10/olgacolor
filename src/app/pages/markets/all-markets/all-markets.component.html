@@ -1,0 +1,37 @@
+<div>
+    <app-header [customClass]="classScrolled" />
+
+    <div class="container all-markets">
+        <h1 class="mb-5">Todos Mercados</h1>
+        
+        @for (market of allMarkets; track market.name) {
+            <div class="mt-3">
+                <h6 class="m-0">Nome: {{ market.name }}</h6> <br>
+                <h6 class="m-0">Descrição: {{ market.description }}</h6> <br>
+                <h6 class="m-0">Permeabilidade ao ar: {{ market.air_permeability }}</h6> <br>
+                <h6 class="m-0">Estanquidade à água: {{ market.water_tightness }}</h6> <br>
+                <h6 class="m-0">Resistência ao vento: {{ market.wind_resistance }}</h6> <br>
+                <h6 class="m-0">Isolamento acústico: {{ market.acoustic_insulation }}</h6> <br>
+                <h6 class="m-0">Transmitáncia térmica: {{ market.thermal_transmittance }}</h6> <br>
+                <h6 class="m-0">Envidraçamento (espessura máxima em mm): {{ market.glazing_thickness }}</h6> <br>
+                <h6 class="m-0">Largura da folha (L em mm): {{ market.width }}</h6> <br>
+                <h6 class="m-0">Altura da folha (H em mm): {{ market.height }}</h6> <br>
+                <h6 class="m-0">Peso máximo por folha: {{ market.weight }}</h6> <br>
+                <h6 class="m-0">Espessura média teórica: {{ market.theoretical_thickness }}</h6>
+
+                @if (market.images.length > 0) {
+                    <h4 class="mt-3">Imagens</h4>
+                    <div class="d-flex gap-1">
+                        @for (image of market.images; track image) {
+                            <img [src]="'http://localhost:8000' + image.path" alt="Imagem do mercado">
+                        }
+                    </div>
+                }
+            </div>
+            <hr>
+        }
+    </div>    
+
+    <app-newsletter />
+    <app-footer />
+</div>
