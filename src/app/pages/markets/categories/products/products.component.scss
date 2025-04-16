@@ -1,0 +1,74 @@
+#markets_categories_products_main {
+    padding: 5rem 0;
+
+    h2 {
+        margin-bottom: 2.5rem;
+        letter-spacing: .75rem;
+    }
+
+    p {
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #757575;
+
+        &::after {
+            content: '';
+            background-color: rgba(0,0,0,.2)!important;
+            width: 4.5rem;
+            height: .8rem;
+            display: block;
+            margin: 1rem auto 2.5rem;
+        }
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+
+        .card-header {
+            padding: 1rem;
+
+            img {
+                display: block;
+                margin: 0 auto;
+            }
+
+            h5 {
+                text-align: center;
+                margin: 1rem 0 0;
+            }
+        }
+
+        .card-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem;
+
+            small {
+                text-align: center;
+                color: #C0C0C0;
+            }
+
+            .button-category {
+                background-color: transparent;
+                border-radius: .25rem;
+                border: 1px solid #ceb172;
+                padding: .5rem 2rem;
+                color: #ceb172;
+                font-size: .9rem;
+                transition: all .35s ease-in-out;
+                font-weight: 700;
+                margin: .5rem auto 0;
+                width: max-content;
+
+                &:hover {
+                    background-color: #ceb172;
+                    color: #FFF;
+                }
+            }   
+        }
+    }
+}

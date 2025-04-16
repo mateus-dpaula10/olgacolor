@@ -1,6 +1,38 @@
-<div id="markets">
+<div id="markets_categories">
     <app-header [customClass]="classScrolled" />
-    <app-main />
+    
+    <div id="markets_categories_main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5 class="title-category">Sistemas</h5>
+    
+                    <div class="content-category">
+                        @for (item of imgCategory; track item.category) {
+                            <div class="item-category">      
+                                <img [src]="'http://localhost:8000' + item.image" 
+                                    [alt]="`Imagem da categoria '${item.category}'`" 
+                                    class="img-fluid">                                                                             
+    
+                                <div class="border"></div>
+    
+                                <h5>{{ item.category }}</h5>
+    
+                                <button class="button-category" (click)="onCategoryClick(item.category)">VER PRODUTOS</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+    
+                <!-- <div class="col-lg-6">
+                    <h5 class="title-category">Produtos para o profissional</h5>
+    
+                    
+                </div> -->
+            </div>
+        </div>
+    </div>  
+
     <app-newsletter />
     <app-footer />
 </div>

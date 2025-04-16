@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from "../../../components/header/header.component";
 import { NewsletterComponent } from "../../../components/newsletter/newsletter.component";
 import { FooterComponent } from "../../../components/footer/footer.component";
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray, FormControl } from '@angular/forms';
 import { MarketsService } from '../../../services/markets.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-markets',
-  imports: [HeaderComponent, NewsletterComponent, FooterComponent, ReactiveFormsModule],
+  imports: [HeaderComponent, NewsletterComponent, FooterComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './add-markets.component.html',
   styleUrl: './add-markets.component.scss'
 })
@@ -17,10 +18,25 @@ export class AddMarketsComponent {
 
   form: FormGroup
 
+  categories: string[] = [
+    'Categoria 1',
+    'Categoria 2',
+    'Categoria 3'
+  ]
+
+  highlights: string[] = [
+    'Ponto 1',
+    'Ponto 2',
+    'Ponto 3',
+    'Ponto 4',
+    'Ponto 5'
+  ]
+
   constructor(private fb: FormBuilder, private marketsService: MarketsService, private snackBar: MatSnackBar) {
     this.form = this.fb.group({
-      name: [''],
+      name: ['', Validators.required],
       description: [''],
+      category: ['', Validators.required],
       air_permeability: [''],
       water_tightness: [''],
       wind_resistance: [''],
@@ -30,20 +46,48 @@ export class AddMarketsComponent {
       width: [''],
       height: [''],
       weight: [''],
-      theoretical_thickness: ['']
+      theoretical_thickness: [''],
+      highlights: this.fb.array(this.highlights.map(() => this.fb.control(false)))
     })
+  }
+
+  get highlightsArray(): FormArray {
+    return this.form.get('highlights') as FormArray
+  }
+
+  getHighlightControl(index: number): FormControl {
+    return this.highlightsArray.at(index) as FormControl;
+  }
+
+  getSelectedHighlights(): string[] {
+    return this.highlights
+      .filter((_, index) => this.highlightsArray.value[index])
   }
 
   createMarket() {
     const formData = new FormData()
 
     Object.keys(this.form.value).forEach(key => {
-      formData.append(key, this.form.value[key])
+      if (key === 'highlights') {
+        const selectedHighlights = this.getSelectedHighlights()
+        selectedHighlights.forEach(value => {
+          formData.append('highlights[]', value)
+        })
+      } else {
+        formData.append(key, this.form.value[key])
+      }
     })
 
     this.selectedFiles.forEach(file => {
       formData.append('images[]', file)
     })
+
+    if (this.form.invalid) {
+      this.snackBar.open('Preencha todos os campos corretamente', 'Fechar', {
+        duration: 3000
+      })
+      return 
+    }
 
     this.marketsService.createMarket(formData).subscribe((res: any) => {
       this.snackBar.open('Produto criado com sucesso', 'Fechar', {

@@ -1,0 +1,158 @@
+<div id="markets_categories_products_product">
+    <app-header [customClass]="classScrolled" />
+    
+    <div id="markets_categories_products_product_main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5">
+                    <div class="main-slider">
+                        <img [src]="'http://localhost:8000' + product.images[0].path" [alt]="`Imagem principal do produto '${product.name}'`">
+                    </div>
+                    <div class="secondary-slider">                        
+                        <img *ngFor="let img of product.images.slice(1); let i = index" [src]="'http://localhost:8000' + img.path" [alt]="`Imagem principal do produto '${product.name}'`" (click)="openModal(i)">                        
+                    </div>
+                </div>
+                
+                <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()"></div>
+
+                <div class="modal show d-block" *ngIf="isModalOpen" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-6">Galeria de Imagens</h1>
+                                <button type="button" class="btn-close" (click)="closeModal()"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="carousel d-flex justify-content-center align-items-center">
+                                    <button class="me-2" (click)="prevImage()">◀</button>
+                                    <img [src]="'http://localhost:8000' + carouselImages[currentIndex].path" class="carousel-img img-fluid" alt="Imagem do produto">
+                                    <button class="ms-2" (click)="nextImage()">▶</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" id="first-column">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-file-text me-3 fs-4"></i>
+                            <p class="d-flex align-items-center mb-0 me-3">Descrição</p>
+                            <span (click)="showText()">+INFO</span>
+                        </div>
+
+                        <div class="card-body">
+                            @if (descriptionShow) {
+                                <p class="mb-0">{{ product.description }}</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <p class="d-flex align-items-center mb-0"><i class="bi bi-file-text me-3 fs-4"></i>Características de desempenhos</p>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <small class="d-flex align-items-center">Permeabilidade ao ar <i class="bi bi-fan ms-2"></i></small>                                
+                                
+                                <div class="progress" role="progressbar" aria-label="Basic example" [attr.aria-valuenow]="product.air_permeability / 10 * 100" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" [ngStyle]="{ width: (product.air_permeability / 10 * 100) + '%' }"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <small class="d-flex align-items-center">Estanquidade à água <i class="bi bi-droplet ms-2"></i></small>                                
+                                
+                                <div class="progress" role="progressbar" aria-label="Basic example" [attr.aria-valuenow]="product.water_tightness / 10 * 100" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" [ngStyle]="{ width: (product.water_tightness / 10 * 100) + '%' }"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <small class="d-flex align-items-center">Resistência ao vento <i class="bi bi-fan ms-2"></i></small>                                
+                                
+                                <div class="progress" role="progressbar" aria-label="Basic example" [attr.aria-valuenow]="product.wind_resistance / 10 * 100" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" [ngStyle]="{ width: (product.wind_resistance / 10 * 100) + '%' }"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <small class="d-flex align-items-center">Isolamento acústico <i class="bi bi-volume-up ms-2"></i></small>                                
+                                
+                                <div class="progress" role="progressbar" aria-label="Basic example" [attr.aria-valuenow]="product.acoustic_insulation / 10 * 100" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" [ngStyle]="{ width: (product.acoustic_insulation / 10 * 100) + '%' }"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <small class="d-flex align-items-center">Transmitáncia térmica <i class="bi bi-thermometer-half ms-2"></i></small>                                
+                                
+                                <div class="progress" role="progressbar" aria-label="Basic example" [attr.aria-valuenow]="product.thermal_transmittance / 10 * 100" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" [ngStyle]="{ width: (product.thermal_transmittance / 10 * 100) + '%' }"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <p class="d-flex align-items-center mb-0"><i class="bi bi-aspect-ratio me-3 fs-4"></i>Dimensões</p>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="d-flex flex-column">
+                                <small class="mb-0"><i class="bi bi-file-check me-2"></i>Envidraçamento</small>
+                                <span>Espessura máxima {{ product.glazing_thickness.toFixed(2) }} mm</span>     
+                            </div>
+                            <div class="d-flex flex-column mt-3">
+                                <small class="mb-0"><i class="bi bi-file-check me-2"></i>Dimensões máximas</small>
+                                <span>Largura da folha (L) = {{ product.width.toFixed(2) }} mm</span>     
+                                <span>Altura da folha (H) = {{ product.height.toFixed(2) }} mm</span>     
+                            </div>
+                            <div class="d-flex flex-column mt-3">
+                                <small class="mb-0"><i class="bi bi-file-check me-2"></i>Peso máximo por folha</small>
+                                <span>{{ product.weight.toFixed(2) }} kg</span>
+                            </div>
+                            <div class="d-flex flex-column mt-3">
+                                <small class="mb-0"><i class="bi bi-file-check me-2"></i>Espessura média teórica</small>
+                                <span>{{ product.theoretical_thickness.toFixed(2) }} mm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" id="second-column">
+                    <div class="card">
+                        <div class="card-body">
+                            @for (high of product.highlights; track high) {
+                                @if (high === 'Ponto 1') {
+                                    <span>
+                                        <i class="bi bi-lightbulb me-1"></i> LUZ
+                                    </span>
+                                } @else if (high === 'Ponto 2') {
+                                    <span>
+                                        <i class="bi bi-volume-up me-1"></i> ACÚSTICA
+                                    </span>
+                                } @else if (high === 'Ponto 3') {
+                                    <span>
+                                        <i class="bi bi-tree me-1"></i> ECONOMIA
+                                    </span>
+                                } @else if (high === 'Ponto 4') {
+                                    <span>
+                                        <i class="bi bi-shield-check me-1"></i> SEGURANÇA
+                                    </span>
+                                } @else if (high === 'Ponto 5') {
+                                    <span>
+                                        <i class="bi bi-door-open me-1"></i> CONFORTO
+                                    </span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-newsletter />
+    <app-footer />
+</div>

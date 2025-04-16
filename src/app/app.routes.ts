@@ -48,14 +48,23 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/markets/markets.component').then(mod => mod.MarketsComponent) 
     },
     { 
-        path: 'mercados/todos-mercados', 
-        canActivate: [authGuard],
-        loadComponent: () => import('./pages/markets/all-markets/all-markets.component').then(mod => mod.AllMarketsComponent) 
-    },
-    { 
         path: 'mercados/adicionar-mercados', 
         canActivate: [authGuard],
         loadComponent: () => import('./pages/markets/add-markets/add-markets.component').then(mod => mod.AddMarketsComponent) 
+    },
+    {
+        path: 'mercados/categorias',
+        loadComponent: () => import('./pages/markets/categories/categories.component').then(mod => mod.CategoriesComponent)
+    },
+    { 
+        path: 'mercados/categorias/produtos', 
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/markets/categories/products/products.component').then(mod => mod.ProductsComponent) 
+    },
+    { 
+        path: 'mercados/categorias/produtos/produto', 
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/markets/categories/products/product/product.component').then(mod => mod.ProductComponent) 
     },
     { 
         path: 'mercados/construcao-civil', 
@@ -72,10 +81,6 @@ export const routes: Routes = [
     { 
         path: 'mercados/linha-industrial', 
         loadComponent: () => import('./pages/industrial-line/industrial-line.component').then(mod => mod.IndustrialLineComponent) 
-    },
-    {
-        path: 'mercados/categorias',
-        loadComponent: () => import('./pages/markets/categories/categories.component').then(mod => mod.CategoriesComponent)
     },
     { 
         path: 'perfis', 
