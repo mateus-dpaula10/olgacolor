@@ -31,6 +31,9 @@ export class AddMarketsComponent {
     'Ponto 4',
     'Ponto 5'
   ]
+  
+  selectedFilesImages: File[] = []
+  selectedFilesTypologies: File[] = []
 
   constructor(private fb: FormBuilder, private marketsService: MarketsService, private snackBar: MatSnackBar) {
     this.form = this.fb.group({
@@ -78,8 +81,12 @@ export class AddMarketsComponent {
       }
     })
 
-    this.selectedFiles.forEach(file => {
+    this.selectedFilesImages.forEach(file => {
       formData.append('images[]', file)
+    })
+
+    this.selectedFilesTypologies.forEach(file => {
+      formData.append('imagesTypologies[]', file)
     })
 
     if (this.form.invalid) {
@@ -97,9 +104,11 @@ export class AddMarketsComponent {
     })
   }
 
-  selectedFiles: File[] = []
-
   onFilesSelected(event: any) {
-    this.selectedFiles = Array.from(event.target.files)
+    this.selectedFilesImages = Array.from(event.target.files)
+  }
+
+  onFilesSelectedTypologies(event: any) {
+    this.selectedFilesTypologies = Array.from(event.target.files)
   }
 }

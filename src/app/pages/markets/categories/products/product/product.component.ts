@@ -55,18 +55,14 @@ export class ProductComponent {
 
       this.route.queryParams.subscribe(params => {
         this.productName = params['name']
-  
+
         if (this.productName) {
-          this.product = this.products.find((p: any) => p.name.toUpperCase() === this.productName!.toUpperCase() || {})
+          this.product = this.products.find((p: any) => p.name.toUpperCase() === this.productName?.toUpperCase())
           this.product.highlights = JSON.parse(this.product.highlights)
         } else {
           this.product = {}
         }
       })
     })
-  }
-
-  openCarousel(index: number) {
-    
   }
 }

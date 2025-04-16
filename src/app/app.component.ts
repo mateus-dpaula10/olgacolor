@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import AOS from 'aos';
@@ -13,11 +14,15 @@ import AOS from 'aos';
 export class AppComponent {
   title = 'olgacolor';
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   ngOnInit(): void {
-    AOS.init({
-      duration: 800,
-      easing: 'ease-in-out',
-      once: false,
-    })
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: false,
+      })
+    }
   }
 }

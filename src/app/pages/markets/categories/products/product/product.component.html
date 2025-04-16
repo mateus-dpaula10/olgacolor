@@ -2,58 +2,74 @@
     <app-header [customClass]="classScrolled" />
     
     <div id="markets_categories_products_product_main">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 mb-5">
-                    <div class="main-slider">
-                        <img [src]="'http://localhost:8000' + product.images[0].path" [alt]="`Imagem principal do produto '${product.name}'`">
+        <div style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px">
+            <div class="container">
+                <div class="row">                
+                    <div class="col-lg-12 mb-5" id="block-slider">
+                        <div class="main-slider">
+                            <img [src]="'http://localhost:8000' + product.images[0].path" [alt]="`Imagem principal do produto '${product.name}'`">
+                        </div>
+                        <div class="secondary-slider">                        
+                            <img *ngFor="let img of product.images.slice(1, 5); let i = index" [src]="'http://localhost:8000' + img.path" [alt]="`Imagem principal do produto '${product.name}'`" (click)="openModal(i)">                        
+                        </div>
                     </div>
-                    <div class="secondary-slider">                        
-                        <img *ngFor="let img of product.images.slice(1); let i = index" [src]="'http://localhost:8000' + img.path" [alt]="`Imagem principal do produto '${product.name}'`" (click)="openModal(i)">                        
+    
+                    <div class="col-lg-12 mb-3" id="block-title">
+                        <h2>{{ product.name }}</h2>
+                        <div>
+                            <p class="mb-1">Tipo:</p>
+                            <h5>{{ product.category }}</h5>
+                        </div>
                     </div>
+    
+                    <hr>
                 </div>
+            </div>
+        </div>
                 
-                <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()"></div>
+        <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()"></div>
 
-                <div class="modal show d-block" *ngIf="isModalOpen" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-6">Galeria de Imagens</h1>
-                                <button type="button" class="btn-close" (click)="closeModal()"></button>
-                            </div>
+        <div class="modal show d-block" *ngIf="isModalOpen" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-6">Galeria de Imagens</h1>
+                        <button type="button" class="btn-close" (click)="closeModal()"></button>
+                    </div>
 
-                            <div class="modal-body">
-                                <div class="carousel d-flex justify-content-center align-items-center">
-                                    <button class="me-2" (click)="prevImage()">◀</button>
-                                    <img [src]="'http://localhost:8000' + carouselImages[currentIndex].path" class="carousel-img img-fluid" alt="Imagem do produto">
-                                    <button class="ms-2" (click)="nextImage()">▶</button>
-                                </div>
-                            </div>
+                    <div class="modal-body">
+                        <div class="carousel d-flex justify-content-center align-items-center">
+                            <button class="me-2" (click)="prevImage()">◀</button>
+                            <img [src]="'http://localhost:8000' + carouselImages[currentIndex].path" class="carousel-img img-fluid" alt="Imagem do produto">
+                            <button class="ms-2" (click)="nextImage()">▶</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-lg-6" id="first-column">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8" id="first-column">
                     <div class="card">
                         <div class="card-header d-flex align-items-center">
                             <i class="bi bi-file-text me-3 fs-4"></i>
                             <p class="d-flex align-items-center mb-0 me-3">Descrição</p>
                             <span (click)="showText()">+INFO</span>
                         </div>
-
+        
                         <div class="card-body">
                             @if (descriptionShow) {
                                 <p class="mb-0">{{ product.description }}</p>
                             }
                         </div>
                     </div>
-
+        
                     <div class="card mt-5">
                         <div class="card-header">
                             <p class="d-flex align-items-center mb-0"><i class="bi bi-file-text me-3 fs-4"></i>Características de desempenhos</p>
                         </div>
-
+        
                         <div class="card-body">
                             <div class="d-flex">
                                 <small class="d-flex align-items-center">Permeabilidade ao ar <i class="bi bi-fan ms-2"></i></small>                                
@@ -92,12 +108,12 @@
                             </div>
                         </div>
                     </div>
-
+        
                     <div class="card mt-5">
                         <div class="card-header">
                             <p class="d-flex align-items-center mb-0"><i class="bi bi-aspect-ratio me-3 fs-4"></i>Dimensões</p>
                         </div>
-
+        
                         <div class="card-body">
                             <div class="d-flex flex-column">
                                 <small class="mb-0"><i class="bi bi-file-check me-2"></i>Envidraçamento</small>
@@ -119,8 +135,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6" id="second-column">
+        
+                <div class="col-lg-4" id="second-column">
                     <div class="card">
                         <div class="card-body">
                             @for (high of product.highlights; track high) {
@@ -145,6 +161,19 @@
                                         <i class="bi bi-door-open me-1"></i> CONFORTO
                                     </span>
                                 }
+                            }
+                        </div>
+                    </div>
+        
+                    <div class="card mt-5">
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-door-open me-3 fs-4"></i>
+                            <p class="d-flex align-items-center mb-0 me-3">Tipologias</p>
+                        </div>
+        
+                        <div class="card-body">
+                            @for (typology of product.images; track typology) {
+                                <img [src]="'http://localhost:8000' + typology.path" alt="">
                             }
                         </div>
                     </div>
