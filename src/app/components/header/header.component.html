@@ -18,7 +18,7 @@
         </div>
         <span class="d-none d-sm-block">|</span>
         <div>
-            <a routerLink="/"><i class="bi bi-person-lock"></i>ACESSE A ÁREA DO CLIENTE</a> 
+            <a routerLink="/login"><i class="bi bi-person-lock"></i>ACESSE A ÁREA DO CLIENTE</a> 
             <span class="ms-2 d-sm-none">|</span>
         </div>
         <span class="d-none d-sm-block">|</span>
@@ -94,6 +94,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/lme">LME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logout()">Sair</a>
                 </li>
             </ul>
         </div>

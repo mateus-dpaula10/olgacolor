@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-header',
   imports: [RouterLink, CommonModule],
@@ -14,7 +15,8 @@ export class HeaderComponent {
   constructor(
     private router: Router, 
     private translate: TranslateService, 
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService
   ) {}
 
   headerClass: string = ''
@@ -44,5 +46,10 @@ export class HeaderComponent {
 
   openDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen
+  }
+
+  logout() {
+    this.authService.logout()
+    this.router.navigate(['/login'])
   }
 }

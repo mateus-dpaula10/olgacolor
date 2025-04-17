@@ -1,39 +1,126 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  form: FormGroup
+  formAuth: FormGroup
+  isLogin: boolean = true
   
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
-    this.form = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
-    })    
+  constructor(
+    private authService: AuthService, 
+    private fb: FormBuilder, 
+    private router: Router, 
+    private snackbar: MatSnackBar
+  ) {
+    this.createForms()
+  }
+
+  createForms() {
+    this.formAuth = this.fb.group({
+      name: [''],
+      email: [''],
+      password: [''],
+      password_confirmation: ['']
+    })
+
+    this.setValidators()
+  }
+
+  setValidators() {
+    if (this.isLogin) {
+      this.formAuth.get('name')?.clearValidators()
+      this.formAuth.get('password_confirmation')?.clearValidators()
+    } else {
+      this.formAuth.get('name')?.setValidators([Validators.required])
+      this.formAuth.get('password_confirmation')?.setValidators([Validators.required])
+    }
+  
+    this.formAuth.get('email')?.setValidators([Validators.required, Validators.email])
+    this.formAuth.get('password')?.setValidators([Validators.required])
+  
+    Object.keys(this.formAuth.controls).forEach((field) => {
+      this.formAuth.get(field)?.updateValueAndValidity()
+    })
+  }
+  
+  toggleMode() {
+    this.isLogin = !this.isLogin
+    this.setValidators()
+    this.formAuth.reset() 
   }
 
   login() {
-    const payload = this.form.value
+    if (this.formAuth.valid) {
+      const { email, password } = this.formAuth.value
+  
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          if (response.access_token) {
+            localStorage.setItem('token', response.access_token)
 
-    if (this.form.valid) {  
-      this.authService.login(payload.email, payload.password).subscribe(response => {
-        if (response.access_token) {
-          if (isPlatformBrowser(this.platformId)) {
-            localStorage.setItem('token', response.access_token)   
+            this.authService.getUser().subscribe({
+              next: (user) => {
+                console.log(user)
+                this.snackbar.open("Login realizado com sucesso", 'Fechar', { duration: 3000 })
+
+                if (user.role === 'Admin') {
+                  this.router.navigate(['/mercados/adicionar-mercados'])
+                } else if (user.role === 'User') {
+                  this.router.navigate(['/mercados/categorias'])
+                } else {
+                  this.router.navigate(['/login'])
+                }
+              },
+              error: () => {
+                this.snackbar.open("Erro ao obter dados do usuário", 'Fechar', { duration: 3000 })
+                this.router.navigate(['/login'])
+              }
+            })
           }
-          this.router.navigate(['/mercados/adicionar-mercados'])
+        },
+        error: () => {
+          this.snackbar.open("Erro ao fazer login. Verifique suas credenciais", 'Fechar', { duration: 3000 })
         }
       })
     } else {
-      alert('Preencha todos os campos!')
+      this.snackbar.open("Preencha todos os campos corretamente", 'Fechar', { duration: 3000 })
     }
   }
+  
+  register() {
+    if (this.formAuth.valid) {
+      const { name, email, password, password_confirmation } = this.formAuth.value
+  
+      if (password !== password_confirmation) {
+        this.snackbar.open("As senhas não coincidem", 'Fechar', { duration: 3000 })
+        return
+      }
+  
+      this.authService.register(name, email, password).subscribe({
+        next: (response) => {
+          if (response.access_token) {
+            localStorage.setItem('token', response.access_token)
+            this.snackbar.open("Cadastro realizado com sucesso", 'Fechar', { duration: 3000 })
+            this.formAuth.reset()
+            this.isLogin = true
+            this.setValidators()
+          }
+        },
+        error: () => {
+          this.snackbar.open("Erro ao registrar. Tente novamente", 'Fechar', { duration: 3000 })
+        }
+      })
+    } else {
+      this.snackbar.open("Preencha todos os campos corretamente", 'Fechar', { duration: 3000 })
+    }
+  }  
 }

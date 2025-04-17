@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './services/auth.guard';
+import { AdminGuard } from './auth/admin.guard';
 
 export const routes: Routes = [
     {
@@ -48,25 +48,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/markets/markets.component').then(mod => mod.MarketsComponent) 
     },
     { 
-        path: 'mercados/adicionar-mercados', 
-        canActivate: [authGuard],
-        loadComponent: () => import('./pages/markets/add-markets/add-markets.component').then(mod => mod.AddMarketsComponent) 
-    },
-    {
-        path: 'mercados/categorias',
-        loadComponent: () => import('./pages/markets/categories/categories.component').then(mod => mod.CategoriesComponent)
-    },
-    { 
-        path: 'mercados/categorias/produtos', 
-        canActivate: [authGuard],
-        loadComponent: () => import('./pages/markets/categories/products/products.component').then(mod => mod.ProductsComponent) 
-    },
-    { 
-        path: 'mercados/categorias/produtos/produto', 
-        canActivate: [authGuard],
-        loadComponent: () => import('./pages/markets/categories/products/product/product.component').then(mod => mod.ProductComponent) 
-    },
-    { 
         path: 'mercados/construcao-civil', 
         loadComponent: () => import('./pages/civil-construction/civil-construction.component').then(mod => mod.CivilConstructionComponent) 
     },
@@ -81,6 +62,32 @@ export const routes: Routes = [
     { 
         path: 'mercados/linha-industrial', 
         loadComponent: () => import('./pages/industrial-line/industrial-line.component').then(mod => mod.IndustrialLineComponent) 
+    },
+    // apenas admin
+    { 
+        path: 'mercados/adicionar-mercados', 
+        canActivate: [AdminGuard],
+        data: { roles: ['Admin'] },
+        loadComponent: () => import('./pages/markets/add-markets/add-markets.component').then(mod => mod.AddMarketsComponent) 
+    },
+    // apenas users
+    {
+        path: 'mercados/categorias',
+        canActivate: [AdminGuard],
+        data: { roles: ['Admin', 'User'] },
+        loadComponent: () => import('./pages/markets/categories/categories.component').then(mod => mod.CategoriesComponent)
+    },
+    { 
+        path: 'mercados/categorias/produtos', 
+        canActivate: [AdminGuard],
+        data: { roles: ['Admin', 'User'] },
+        loadComponent: () => import('./pages/markets/categories/products/products.component').then(mod => mod.ProductsComponent) 
+    },
+    { 
+        path: 'mercados/categorias/produtos/produto', 
+        canActivate: [AdminGuard],
+        data: { roles: ['Admin', 'User'] },
+        loadComponent: () => import('./pages/markets/categories/products/product/product.component').then(mod => mod.ProductComponent) 
     },
     { 
         path: 'perfis', 
