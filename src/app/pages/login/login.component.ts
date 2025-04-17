@@ -65,7 +65,9 @@ export class LoginComponent {
       this.authService.login(email, password).subscribe({
         next: (response) => {
           if (response.access_token) {
-            localStorage.setItem('token', response.access_token)
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('token', response.access_token)
+            }
 
             this.authService.getUser().subscribe({
               next: (user) => {
@@ -108,7 +110,10 @@ export class LoginComponent {
       this.authService.register(name, email, password).subscribe({
         next: (response) => {
           if (response.access_token) {
-            localStorage.setItem('token', response.access_token)
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('token', response.access_token)
+            }
+            
             this.snackbar.open("Cadastro realizado com sucesso", 'Fechar', { duration: 3000 })
             this.formAuth.reset()
             this.isLogin = true

@@ -28,14 +28,18 @@ export class AuthService {
   }
 
   getUser() {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+
     return this.http.get<User>('http://localhost:8000/api/user', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${token}`
       }
     })
   }
 
   logout() {
-    localStorage.removeItem('token')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token')
+    }
   }
 }
