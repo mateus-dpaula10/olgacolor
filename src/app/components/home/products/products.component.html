@@ -12,81 +12,79 @@
 
         <div class="parallax_container">
             @for (block of products_blocks; track block) {
-                @if (block.isLeft) {
-                    <div class="products_block">
-                        <div class="row mt-5 align-items-center justify-content-between">
-                            <div class="col-lg-6 products_block_content">
-                                <div class="border-left" [id]="block.isLast ? 'nth-of-type' : ''"></div>
-        
-                                <img class="img-fluid" [src]="block.imgSrc" [alt]="block.altImg">
-                                <ul>
-                                    @for (li of block.details; track li) {
-                                        <li>
-                                            <h3>{{ li.value }}</h3>
-                                            <p>{{ li.description }}</p>
-                                        </li>
-                                    }
-                                </ul>
-                                <p>{{ block.description }}</p>
-                                <ul class="links">
-                                    <li>
-                                        <a routerLink="/pagina-inicial">
-                                            <h6>SAIBA MAIS</h6>
-                                            <span class="bi bi-arrow-right-short fs-3"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="/pagina-inicial">
-                                            <h6>PRODUTOS</h6>
-                                            <span class="bi bi-arrow-right-short fs-3"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6 products_block_img mt-5 mt-lg-0">
-                                <img [src]="block.productImg" [alt]="block.altProduct" class="img-fluid">
-                            </div>
-                        </div>
+            @if (block.isLeft) {
+            <div class="products_block">
+                <div class="row mt-5 align-items-center justify-content-between">
+                    <div class="col-lg-6 products_block_content">
+                        <div class="border-left" [id]="block.isLast ? 'nth-of-type' : ''"></div>
+                        <img class="img-fluid" [src]="block.imgSrc" [alt]="block.altImg">
+                        <ul class="big-informations">
+                            @for (li of block.details; track li) {
+                            <li>
+                                <h3>{{ li.value }}</h3>
+                                <p>{{ li.description }}</p>
+                            </li>
+                            }
+                        </ul>
+                        <p>{{ block.description }}</p>
+                        <ul class="links">
+                            <li>
+                                <a routerLink="/pagina-inicial">
+                                    <h6>SAIBA MAIS</h6>
+                                    <span class="bi bi-arrow-right-short fs-3"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/pagina-inicial">
+                                    <h6>PRODUTOS</h6>
+                                    <span class="bi bi-arrow-right-short fs-3"></span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                } @else {
-                    <div class="products_block">
-                        <div class="row mt-5 flex-column-reverse flex-lg-row align-items-center justify-content-between">
-                            <div class="col-lg-6 products_block_img mt-5 mt-lg-0">
-                                <img [src]="block.productImg" [alt]="block.altProduct" class="img-fluid">
-                            </div>
-                            <div class="col-lg-6 products_block_content">
-                                <div class="border-right"></div>
-        
-                                <img class="img-fluid" [src]="block.imgSrc" [alt]="block.altImg">
-                                <ul>
-                                    @for (li of block.details; track li) {
-                                        <li>
-                                            <h2>{{ li.value }}</h2>
-                                            <p>{{ li.description }}</p>
-                                        </li>
-                                    }
-                                </ul>
-                                <p>{{ block.description }}</p>
-                                <ul class="links">
-                                    <li>
-                                        <a routerLink="/pagina-inicial">
-                                            <h6>SAIBA MAIS</h6>
-                                            <span class="bi bi-arrow-right-short fs-3"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="/pagina-inicial">
-                                            <h6>PRODUTOS</h6>
-                                            <span class="bi bi-arrow-right-short fs-3"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="col-lg-6 products_block_img mt-lg-0">
+                        <img [src]="block.productImg" [alt]="block.altProduct" class="img-fluid">
                     </div>
-                }
+                </div>
+            </div>
+            } @else {
+            <div class="products_block">
+                <div class="row mt-5 flex-column-reverse flex-lg-row align-items-center justify-content-between">
+                    <div class="col-lg-6 products_block_img mt-lg-0">
+                        <img [src]="block.productImg" [alt]="block.altProduct" class="img-fluid">
+                    </div>
+                    <div class="col-lg-6 products_block_content">
+                        <div class="border-right"></div>
+
+                        <img class="img-fluid" [src]="block.imgSrc" [alt]="block.altImg">
+                        <ul class="big-informations">
+                            @for (li of block.details; track li) {
+                            <li>
+                                <h2>{{ li.value }}</h2>
+                                <p>{{ li.description }}</p>
+                            </li>
+                            }
+                        </ul>
+                        <p>{{ block.description }}</p>
+                        <ul class="links">
+                            <li>
+                                <a routerLink="/pagina-inicial">
+                                    <h6>SAIBA MAIS</h6>
+                                    <span class="bi bi-arrow-right-short fs-3"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/pagina-inicial">
+                                    <h6>PRODUTOS</h6>
+                                    <span class="bi bi-arrow-right-short fs-3"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            }
             }
         </div>
     </div>
 </div>
-
