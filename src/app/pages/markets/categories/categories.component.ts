@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../../../components/header/header.component"; 
+import { HeaderComponent } from "../../../components/header/header.component";
 import { NewsletterComponent } from '../../../components/newsletter/newsletter.component';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { MarketsService } from '../../../services/markets.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-categories',
@@ -14,10 +15,12 @@ import { Router } from '@angular/router';
 export class CategoriesComponent {
   classScrolled: string = 'scrolled position-sticky'
 
+  protected readonly url = environment.apiUrl;
+
   constructor(
     private marketsService: MarketsService,
     private router: Router
-  ) {}
+  ) { }
 
   products: any = []
   categories: any[] = []
@@ -46,44 +49,4 @@ export class CategoriesComponent {
     this.router.navigate(['/mercados/categorias/produtos'], { queryParams: { category: category.toUpperCase() } })
   }
 
-  // categories: any = [
-  //   {
-  //     name: "Sistemas",
-  //     manufactured_by: [
-  //       {
-  //         name: "Teste",
-  //         image: "assets/images/profiles/anodizing.jpg"
-  //       }
-  //     ],
-  //     items: [
-  //       {
-  //         name: "Sistema1",
-  //         image: "assets/images/catalogs/cup_holder.webp"
-  //       },
-  //       {
-  //         name: "Sistema2",
-  //         image: "assets/images/catalogs/doors_windows.jpg"
-  //       },
-  //       {
-  //         name: "Sistema3",
-  //         image: "assets/images/catalogs/cup_holder.webp"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     name: "Produtos para o profissional",
-  //     manufactured_by: [
-  //       {
-  //         name: "Teste",
-  //         image: "assets/images/profiles/anodizing.jpg"
-  //       }
-  //     ],
-  //     items: [
-  //       {
-  //         name: "Produto1",
-  //         image: "assets/images/catalogs/cup_holder.webp"
-  //       }
-  //     ]
-  //   }
-  // ]
 }

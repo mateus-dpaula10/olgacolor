@@ -3,6 +3,7 @@ import { HeaderComponent } from "../../../components/header/header.component";
 import { NewsletterComponent } from "../../../components/newsletter/newsletter.component";
 import { FooterComponent } from "../../../components/footer/footer.component";
 import { MarketsService } from '../../../services/markets.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-all-markets',
@@ -11,9 +12,12 @@ import { MarketsService } from '../../../services/markets.service';
   styleUrl: './all-markets.component.scss'
 })
 export class AllMarketsComponent {
+
+  protected readonly url = environment.apiUrl;
+
   constructor(
     private marketsService: MarketsService
-  ) {}
+  ) { }
 
   allMarkets: any = []
 

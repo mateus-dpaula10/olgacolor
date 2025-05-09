@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from "../../../../components/header/header.component";
 import { NewsletterComponent } from "../../../../components/newsletter/newsletter.component";
 import { FooterComponent } from "../../../../components/footer/footer.component";
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MarketsService } from '../../../../services/markets.service';
-import { filter } from 'rxjs';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-products',
@@ -18,19 +18,21 @@ export class ProductsComponent {
   category: string | null = null
   productsCategory: any[] = []
 
+  protected readonly url = environment.apiUrl;
+
   constructor(
     private marketsService: MarketsService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
-  
+  ) { }
+
   ngOnInit(): void {
     this.marketsService.getMarkets().subscribe((res: any) => {
-      this.products = res 
+      this.products = res
 
       this.route.queryParams.subscribe(params => {
         this.category = params['category']
-  
+
         if (this.category) {
           this.productsCategory = this.products.filter((p: any) => p.category.toUpperCase() === this.category!.toUpperCase())
         } else {

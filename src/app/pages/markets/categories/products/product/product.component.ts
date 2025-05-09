@@ -5,6 +5,7 @@ import { FooterComponent } from "../../../../../components/footer/footer.compone
 import { ActivatedRoute } from '@angular/router';
 import { MarketsService } from '../../../../../services/markets.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-product',
@@ -21,6 +22,8 @@ export class ProductComponent {
   currentIndex: number = 0
   isModalOpen: boolean = false
   descriptionShow: boolean = false
+
+  protected readonly url = environment.apiUrl;
 
   showText() {
     this.descriptionShow = !this.descriptionShow
@@ -47,11 +50,11 @@ export class ProductComponent {
   constructor(
     private route: ActivatedRoute,
     private marketsService: MarketsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.marketsService.getMarkets().subscribe((res: any) => {
-      this.products = res 
+      this.products = res
 
       this.route.queryParams.subscribe(params => {
         this.productName = params['name']
@@ -65,4 +68,5 @@ export class ProductComponent {
       })
     })
   }
+
 }

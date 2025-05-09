@@ -1,18 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class NewsletterService {
-  // private apiUrl = 'https://olgacolor-email-api.onrender.com/send-email'
-  private apiUrl = 'http://localhost:8000/api/send-email'
 
-  constructor(private http: HttpClient) { }
+  private readonly _http = inject(HttpClient);
+  private readonly _url = `${environment.apiUrl}/api/send-email`;
 
   sendEmail(to: string, subject: string, body: string): Observable<any> {
     const payload = { to, subject, body }
-    return this.http.post(this.apiUrl, payload)
+    return this._http.post(this._url, payload)
   }
 }

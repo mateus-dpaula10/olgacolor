@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class MarketsService {
-  constructor(private http: HttpClient) { }
+
+  private readonly _http = inject(HttpClient);
+  private readonly _url = `${environment.apiUrl}/api/markets`;
 
   getMarkets() {
-    return this.http.get('http://localhost:8000/api/markets')
+    return this._http.get(this._url)
   }
 
   createMarket(market: any) {
-    return this.http.post('http://localhost:8000/api/markets', market);
+    return this._http.post(this._url, market);
   }
 
   getMarketById(id: number): Observable<any> {
-    return this.http.get(`http://localhost:8000/api/markets/${id}`);
+    return this._http.get(`${this._url}/${id}`);
   }
+
 }

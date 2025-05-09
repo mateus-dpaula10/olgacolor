@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 interface LoginResponse {
   access_token: string;
@@ -13,24 +14,24 @@ interface User {
   role: string
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+
+  private readonly _http = inject(HttpClient);
+  private readonly _url = `${environment.apiUrl}/api`;
 
   login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('http://localhost:8000/api/login', { email, password });
+    return this._http.post<LoginResponse>(`${this._url}/login`, { email, password });
   }
 
   register(name: string, email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('http://localhost:8000/api/register', { name, email, password });
+    return this._http.post<LoginResponse>(`${this._url}/register`, { name, email, password });
   }
 
   getUser() {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
 
-    return this.http.get<User>('http://localhost:8000/api/user', {
+    return this._http.get<User>(`${this._url}/user`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -42,4 +43,5 @@ export class AuthService {
       localStorage.removeItem('token')
     }
   }
+
 }

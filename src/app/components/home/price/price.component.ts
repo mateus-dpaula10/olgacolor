@@ -12,13 +12,13 @@ import { CommonModule } from '@angular/common';
 export class PriceComponent {
   dynamicWidth: number = 10
   dynamicBg: string = '#000'
-  currencies: any[] = []  
+  currencies: any[] = []
   currentMonth: number
   currentYear: number
-  
+
   constructor(
     private priceService: PriceService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const currentDate = new Date()
@@ -37,14 +37,14 @@ export class PriceComponent {
         for (let i = 1; i < 5; i++) {
           const key = currencyKeys[i]
           const currency = currencies[key]
-          
+
           this.currencies.push({
             sigla: key,
-            buy: currency.buy,
+            buy: currency?.buy,
             name: currency.name,
             code: currency.code,
             variation: currency.variation
-          })          
+          })
         }
       },
       error: (err) => {
