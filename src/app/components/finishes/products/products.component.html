@@ -1,0 +1,31 @@
+<div class="filters-wrapper">
+    <div class="search-wrapper">
+        <label for="search">Buscar</label>
+        <input type="search" id="search" placeholder="Buscar...">
+    </div>
+
+    <div class="categories-wrapper">
+        <label>Categorias</label>
+    </div>
+</div>
+
+<div class="products-wrapper">
+    <span class="title">
+        Produtos<!--  da categoria -->
+    </span>
+
+    <div class="products-list">
+        @for (color of colors(); track color.id) {
+        <div class="product-item">
+            <div class="image-container">
+                <img [src]="color?.imagem" [alt]="color?.titulo">
+            </div>
+            <span class="product-name">{{ color?.titulo }}</span>
+        </div>
+        } @empty {
+        <div class="product-item">
+            <span class="product-name">Nenhum produto encontrado</span>
+        </div>
+        }
+    </div>
+</div>

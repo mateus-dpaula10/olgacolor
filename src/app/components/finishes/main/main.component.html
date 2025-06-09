@@ -4,11 +4,12 @@
             <div class="col-lg-4">
                 <h2>Nossas cores</h2>
                 <p>
-                    As cores e acabamentos podem variar devido aos diferentes tipos de monitores. 
-                    Para sua segurança, consulte sempre a disponibilidade de cores, padrões e 
+                    As cores e acabamentos podem variar devido aos diferentes tipos de monitores.
+                    Para sua segurança, consulte sempre a disponibilidade de cores, padrões e
                     produtos com o acabamento desejado.
                 </p>
-                <a routerLink="/" class="btn btn-outline-dark rounded-pill px-4">Produtos</a>
+                <a [routerLink]="['/acabamentos', {outlets: {second: 'products'}}]"
+                    class="btn btn-outline-dark rounded-pill px-4">Produtos</a>
             </div>
 
             <div class="col-lg-8 mt-5 mt-lg-0">
@@ -27,7 +28,8 @@
                     </div>
                     <div class="col mt-3 mt-md-0">
                         <div class="block">
-                            <img src="assets/images/finishes/electrostatic_painting.jpg" alt="Imagem de pintura eletrostática a pó">
+                            <img src="assets/images/finishes/electrostatic_painting.jpg"
+                                alt="Imagem de pintura eletrostática a pó">
                             <h6>Pintura Eletrostática a Pó</h6>
                         </div>
                     </div>
