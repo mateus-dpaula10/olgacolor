@@ -7,13 +7,15 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch()), 
+    provideHttpClient(withFetch()),
     provideCharts(withDefaultRegisterables()),
     {
       provide: TranslateLoader,
@@ -27,6 +29,16 @@ export const appConfig: ApplicationConfig = {
         useFactory: (http: HttpClient) => new TranslateHttpLoader(http, './assets/i18n/', '.json'),
         deps: [HttpClient]
       }
-    }).providers!
+    }).providers!,
+    provideFirebaseApp(() => initializeApp({
+      projectId: "olgacolor-5ed0f",
+      appId: "1:233409123677:web:d8ee6c9736663b65bac4b4",
+      storageBucket: "olgacolor-5ed0f.firebasestorage.app",
+      apiKey: "AIzaSyCBwotnNHxhfh78y3R7mpvGRT_SSmhm4j4",
+      authDomain: "olgacolor-5ed0f.firebaseapp.com",
+      messagingSenderId: "233409123677",
+      measurementId: "G-2J9VZ9TTEB"
+    })),
+    provideFirestore(() => getFirestore())
   ]
 };
