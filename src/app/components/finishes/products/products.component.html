@@ -16,7 +16,7 @@
 
     <div class="products-list">
         @for (color of colors(); track color.id) {
-        <div class="product-item">
+        <div class="product-item" [class.loading]="isLoading()">
             <div class="image-container">
                 <img [src]="color?.imagem" [alt]="color?.titulo">
             </div>
@@ -28,4 +28,7 @@
         </div>
         }
     </div>
+
+    <mat-paginator [length]="totalItems()" [pageSize]="pageSize" [pageSizeOptions]="[12, 24, 36, 48]"
+        (page)="onPageChange($event)" aria-label="Selecione a página" />
 </div>
