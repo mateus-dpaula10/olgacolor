@@ -11,6 +11,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   styleUrl: './products.component.scss'
 })
 export class FinishesProductsComponent implements OnInit {
+
   private readonly _finishesService = inject(FinishesService);
 
   protected colors = signal<any[]>([]);
@@ -57,4 +58,9 @@ export class FinishesProductsComponent implements OnInit {
     this.pageSize = event.pageSize;
     this.loadData();
   }
+
+  protected setProduct(product: any): void {
+    this._finishesService.selectedProduct.set(product);
+  }
+
 }

@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Firestore, collection, getDocs, doc, getDoc, getCountFromServer, query, orderBy, limit, startAfter } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 
@@ -9,6 +9,8 @@ interface PaginationParams {
 
 @Injectable({ providedIn: 'root' })
 export class FinishesService {
+
+  public selectedProduct = signal<any>(null);
 
   private readonly _firestore = inject(Firestore);
 

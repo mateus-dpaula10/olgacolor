@@ -16,7 +16,7 @@
 
     <div class="products-list">
         @for (color of colors(); track color.id) {
-        <div class="product-item" [class.loading]="isLoading()">
+        <div (click)="setProduct(color)" class="product-item" [class.loading]="isLoading()">
             <div class="image-container">
                 <img [src]="color?.imagem" [alt]="color?.titulo">
             </div>

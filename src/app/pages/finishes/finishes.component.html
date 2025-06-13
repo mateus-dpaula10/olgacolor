@@ -1,6 +1,14 @@
 <div id="markets">
     <app-header [customClass]="classScrolled" />
-    <router-outlet name="second" />
-    <app-newsletter />
+    <mat-drawer-container [scrollTop]="true">
+        <mat-drawer #drawer position="end" mode="over">
+            <div class="product">
+                <img [src]="_finishesService.selectedProduct()?.imagem" alt="" />
+                <h6>{{ _finishesService.selectedProduct()?.titulo }}</h6>
+            </div>
+        </mat-drawer>
+        <router-outlet name="second" />
+    </mat-drawer-container>
     <app-footer />
+    <app-newsletter />
 </div>
