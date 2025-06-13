@@ -160,7 +160,17 @@ mat-paginator {
     }
 }
 
-@media (width >=1440px) {
+@media (width >=1200px) {
+    :host {
+        max-width: 1140px;
+    }
+}
+
+@media (width >=1400px) {
+    :host {
+        max-width: 1320px;
+    }
+
     .products-list {
         grid-template-columns: repeat(8, 1fr);
     }
