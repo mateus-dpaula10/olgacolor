@@ -1,10 +1,19 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Firestore, collection, getDocs, doc, getDoc, getCountFromServer, query, orderBy, limit, startAfter } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, doc, getDoc, getCountFromServer, query, orderBy, limit, startAfter, where } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 
 interface PaginationParams {
   pageSize: number;
   page: number;
+  search?: string;
+}
+
+interface PortfolioItem {
+  id: string;
+  titulo?: string;
+  slug?: string;
+  imagem?: string;
+  [key: string]: any;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -16,8 +25,33 @@ export class FinishesService {
 
   getPortfolio(params: PaginationParams = { pageSize: 12, page: 0 }): Observable<any[]> {
     const portfolioRef = collection(this._firestore, 'portfolio');
-    const startIndex = params.page * params.pageSize;
 
+    // Se há busca, buscar todos os documentos e filtrar
+    if (params.search && params.search.trim()) {
+      return from(getDocs(portfolioRef).then(snapshot => {
+        let docs = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as PortfolioItem[];
+
+        // Aplicar filtro de busca
+        const searchTerm = params.search!.toLowerCase().trim();
+        docs = docs.filter(doc =>
+          doc.titulo && doc.titulo.toLowerCase().includes(searchTerm)
+        );
+
+        // Ordenar por slug
+        docs.sort((a, b) => (a.slug || '').localeCompare(b.slug || ''));
+
+        // Aplicar paginação
+        const startIndex = params.page * params.pageSize;
+        const endIndex = startIndex + params.pageSize;
+        return docs.slice(startIndex, endIndex);
+      }));
+    }
+
+    // Sem busca, usar paginação normal do Firestore
+    const startIndex = params.page * params.pageSize;
     let q = query(portfolioRef, orderBy('slug', 'asc'), limit(params.pageSize));
 
     if (startIndex > 0) {
@@ -30,7 +64,7 @@ export class FinishesService {
           snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
-          }))
+          })) as PortfolioItem[]
         );
       }));
     }
@@ -39,7 +73,7 @@ export class FinishesService {
       snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
-      }))
+      })) as PortfolioItem[]
     ));
   }
 
@@ -77,8 +111,26 @@ export class FinishesService {
     }));
   }
 
-  getPortfolioCount(): Observable<number> {
+  getPortfolioCount(search?: string): Observable<number> {
     const portfolioRef = collection(this._firestore, 'portfolio');
+
+    if (search && search.trim()) {
+      // Se há busca, precisamos contar os itens filtrados
+      return from(getDocs(portfolioRef).then(snapshot => {
+        const docs = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as PortfolioItem[];
+
+        const searchTerm = search.toLowerCase().trim();
+        const filteredDocs = docs.filter(doc =>
+          doc.titulo && doc.titulo.toLowerCase().includes(searchTerm)
+        );
+
+        return filteredDocs.length;
+      }));
+    }
+
     return from(getCountFromServer(portfolioRef).then(snapshot => snapshot.data().count));
   }
 

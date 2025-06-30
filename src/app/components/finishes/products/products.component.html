@@ -1,7 +1,7 @@
 <div class="filters-wrapper">
     <div class="search-wrapper">
         <label for="search">Buscar</label>
-        <input type="search" id="search" placeholder="Buscar...">
+        <input [formControl]="searchControl" type="search" id="search" placeholder="Buscar..." />
     </div>
 
     <div class="categories-wrapper">
