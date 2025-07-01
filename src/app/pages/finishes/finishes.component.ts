@@ -4,7 +4,7 @@ import { NewsletterComponent } from "../../components/newsletter/newsletter.comp
 import { FooterComponent } from "../../components/footer/footer.component";
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule, MatDrawer } from '@angular/material/sidenav';
-import { FinishesService } from '../../services/finishes.service';
+import { FinishesService } from './services/finishes.service';
 
 @Component({
   selector: 'app-finishes',

@@ -5,7 +5,40 @@
     </div>
 
     <div class="categories-wrapper">
-        <label>Categorias</label>
+        <div class="categories-header">
+            <span class="categories-title">Categorias</span>
+            @if (selectedCategory()) {
+            <button (click)="clearFilters()" class="clear-filters-btn">
+                Limpar filtros
+            </button>
+            }
+        </div>
+        @if (selectedCategory()) {
+        <div class="selected-category">
+            Categoria selecionada: <strong>{{ selectedCategory() }}</strong>
+        </div>
+        }
+        <ul class="categories-list">
+            <li (click)="onCategoryClick('Anodização')" class="category-item">Anodização</li>
+            <li>
+                <span (click)="onCategoryClick('Pintura')" class="subcategories-title">Pintura Eletrostática a Pó</span>
+                <ul class="subcategories-list">
+                    <li (click)="onCategoryClick('Cores de linha')" class="category-item">Cores de linha</li>
+                    <li (click)="onCategoryClick('Cores especiais')" class="category-item">Cores especiais</li>
+                    <li (click)="onCategoryClick('Catálogo Referência RAL')" class="category-item">Cores referências RAL
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span (click)="onCategoryClick('Efeito Madeira')" class="subcategories-title">Efeito Madeira</span>
+                <ul class="subcategories-list">
+                    <li (click)="onCategoryClick('Acabamento pó sobre pó')" class="category-item">Acabamento pó sobre pó
+                    </li>
+                    <li (click)="onCategoryClick('Acabamento sublimação')" class="category-item">Acabamento sublimação
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </div>
 

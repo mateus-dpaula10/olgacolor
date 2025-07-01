@@ -6,6 +6,7 @@ interface PaginationParams {
   pageSize: number;
   page: number;
   search?: string;
+  category?: string;
 }
 
 interface PortfolioItem {
@@ -13,6 +14,7 @@ interface PortfolioItem {
   titulo?: string;
   slug?: string;
   imagem?: string;
+  categorias?: string[];
   [key: string]: any;
 }
 
@@ -26,8 +28,8 @@ export class FinishesService {
   getPortfolio(params: PaginationParams = { pageSize: 12, page: 0 }): Observable<any[]> {
     const portfolioRef = collection(this._firestore, 'portfolio');
 
-    // Se há busca, buscar todos os documentos e filtrar
-    if (params.search && params.search.trim()) {
+    // Se há busca ou categoria, buscar todos os documentos e filtrar
+    if ((params.search && params.search.trim()) || (params.category && params.category.trim())) {
       return from(getDocs(portfolioRef).then(snapshot => {
         let docs = snapshot.docs.map(doc => ({
           id: doc.id,
@@ -35,10 +37,22 @@ export class FinishesService {
         })) as PortfolioItem[];
 
         // Aplicar filtro de busca
-        const searchTerm = params.search!.toLowerCase().trim();
-        docs = docs.filter(doc =>
-          doc.titulo && doc.titulo.toLowerCase().includes(searchTerm)
-        );
+        if (params.search && params.search.trim()) {
+          const searchTerm = params.search.toLowerCase().trim();
+          docs = docs.filter(doc =>
+            doc.titulo && doc.titulo.toLowerCase().includes(searchTerm)
+          );
+        }
+
+        // Aplicar filtro de categoria
+        if (params.category && params.category.trim()) {
+          const categoryTerm = params.category.toLowerCase().trim();
+          docs = docs.filter(doc =>
+            doc.categorias && doc.categorias.some(cat =>
+              cat.toLowerCase().includes(categoryTerm)
+            )
+          );
+        }
 
         // Ordenar por slug
         docs.sort((a, b) => (a.slug || '').localeCompare(b.slug || ''));
@@ -111,23 +125,36 @@ export class FinishesService {
     }));
   }
 
-  getPortfolioCount(search?: string): Observable<number> {
+  getPortfolioCount(search?: string, category?: string): Observable<number> {
     const portfolioRef = collection(this._firestore, 'portfolio');
 
-    if (search && search.trim()) {
-      // Se há busca, precisamos contar os itens filtrados
+    if ((search && search.trim()) || (category && category.trim())) {
+      // Se há busca ou categoria, precisamos contar os itens filtrados
       return from(getDocs(portfolioRef).then(snapshot => {
-        const docs = snapshot.docs.map(doc => ({
+        let docs = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         })) as PortfolioItem[];
 
-        const searchTerm = search.toLowerCase().trim();
-        const filteredDocs = docs.filter(doc =>
-          doc.titulo && doc.titulo.toLowerCase().includes(searchTerm)
-        );
+        // Aplicar filtro de busca
+        if (search && search.trim()) {
+          const searchTerm = search.toLowerCase().trim();
+          docs = docs.filter(doc =>
+            doc.titulo && doc.titulo.toLowerCase().includes(searchTerm)
+          );
+        }
 
-        return filteredDocs.length;
+        // Aplicar filtro de categoria
+        if (category && category.trim()) {
+          const categoryTerm = category.toLowerCase().trim();
+          docs = docs.filter(doc =>
+            doc.categorias && doc.categorias.some(cat =>
+              cat.toLowerCase().includes(categoryTerm)
+            )
+          );
+        }
+
+        return docs.length;
       }));
     }
 
