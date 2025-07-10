@@ -1,24 +1,24 @@
-<nav class="navbar navbar-expand-lg flex-column" id="header" [ngClass]="headerClass">
+<nav class="navbar navbar-expand-lg flex-column" id="header" [ngClass]="headerClass()">
     <div class="container">
         <div>
             <i class="bi bi-globe" title="Mudar idioma" (click)="openDropdown()"></i>
-            @if (isDropdownOpen) {
-                <div class="dropdown">
-                    <ul>
-                        <li (click)="changeLanguage('pt')">
-                            Português
-                        </li>
-                        <li (click)="changeLanguage('en')">
-                            Inglês
-                        </li>
-                    </ul>
-                </div>
+            @if (isDropdownOpen()) {
+            <div class="dropdown">
+                <ul>
+                    <li (click)="changeLanguage('pt')">
+                        Português
+                    </li>
+                    <li (click)="changeLanguage('en')">
+                        Inglês
+                    </li>
+                </ul>
+            </div>
             }
             <span class="ms-2 d-sm-none">|</span>
         </div>
         <span class="d-none d-sm-block">|</span>
         <div>
-            <a routerLink="/login"><i class="bi bi-person-lock"></i>ACESSE A ÁREA DO CLIENTE</a> 
+            <a routerLink="/login"><i class="bi bi-person-lock"></i>ACESSE A ÁREA DO CLIENTE</a>
             <span class="ms-2 d-sm-none">|</span>
         </div>
         <span class="d-none d-sm-block">|</span>
@@ -27,17 +27,19 @@
             <a routerLink="/"><i class="bi bi-linkedin"></i></a>
             <a routerLink="/"><i class="bi bi-instagram"></i></a>
             <a routerLink="/"><i class="bi bi-youtube"></i></a>
-        </div>        
+        </div>
     </div>
 
     <div class="container">
         <a class="navbar-brand" routerLink="/pagina-inicial">
             <img class="img-fluid" src="assets/images/logo_olgacolor_white.avif" alt="Logo da Olgacolor">
         </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
                 <!-- <li class="nav-item">
@@ -61,11 +63,11 @@
                         Mercados
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLink="/mercados">Mercados</a></li>                                            
-                        <li><a class="dropdown-item" routerLink="/mercados/construcao-civil">Construção Civil</a></li>                                            
-                        <li><a class="dropdown-item" routerLink="/mercados/linha-moveleira">Perfis Moveleiros</a></li>                                            
-                        <li><a class="dropdown-item" routerLink="/mercados/linha-industrial">Perfis Industriais</a></li>                                            
-                        <li><a class="dropdown-item" routerLink="/mercados/envidracamento">Vidraçaria</a></li>                                            
+                        <li><a class="dropdown-item" routerLink="/mercados">Mercados</a></li>
+                        <li><a class="dropdown-item" routerLink="/mercados/construcao-civil">Construção Civil</a></li>
+                        <li><a class="dropdown-item" routerLink="/mercados/linha-moveleira">Perfis Moveleiros</a></li>
+                        <li><a class="dropdown-item" routerLink="/mercados/linha-industrial">Perfis Industriais</a></li>
+                        <li><a class="dropdown-item" routerLink="/mercados/envidracamento">Vidraçaria</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -73,12 +75,13 @@
                         Perfis
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLink="/perfis">Perfis</a></li>       
-                        <li><a class="dropdown-item" (click)="onPerfilClick('Construção Civil')">Perfis Construção Civil</a></li>                        
-                        <li><a class="dropdown-item" (click)="onPerfilClick('Vidraçaria')">Perfis Vidraçaria</a></li>                        
-                        <li><a class="dropdown-item" (click)="onPerfilClick('Moveleira')">Perfis Moveleiros</a></li>                        
-                        <li><a class="dropdown-item" (click)="onPerfilClick('Industrial')">Perfis Industriais</a></li>                       
-                        <li><a class="dropdown-item" (click)="onPerfilClick('Tabelados O')">Perfis Tabelados</a></li>                     
+                        <li><a class="dropdown-item" routerLink="/perfis">Perfis</a></li>
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Construção Civil')">Perfis Construção
+                                Civil</a></li>
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Vidraçaria')">Perfis Vidraçaria</a></li>
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Moveleira')">Perfis Moveleiros</a></li>
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Industrial')">Perfis Industriais</a></li>
+                        <li><a class="dropdown-item" (click)="onPerfilClick('Tabelados O')">Perfis Tabelados</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -86,7 +89,7 @@
                         Acabamentos
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" routerLink="/acabamentos">Acabamentos</a></li>                         
+                        <li><a class="dropdown-item" routerLink="/acabamentos">Acabamentos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -100,5 +103,20 @@
                 </li>
             </ul>
         </div>
+    </div>
+
+    <div class="container">
+        <input [formControl]="searchProfileControl" [matAutocomplete]="auto" class="search-profile" type="text"
+            placeholder="Buscar perfis" />
+        <mat-autocomplete #auto="matAutocomplete">
+            @for (profile of filteredProfiles | async; track profile.id) {
+            <mat-option [value]="profile">
+                <div class="option">
+                    <img [src]="profile.image_small" alt="Profile image" />
+                    <span>{{ profile.name }}</span>
+                </div>
+            </mat-option>
+            }
+        </mat-autocomplete>
     </div>
 </nav>

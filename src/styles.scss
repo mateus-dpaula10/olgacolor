@@ -1,3 +1,22 @@
+// Estilos CSS para customizar o autocomplete
+.mat-mdc-autocomplete-panel {
+    background-color: black !important;
+    scrollbar-color: white black;
+    scrollbar-width: thin;
+}
+
+.mat-mdc-option {
+    color: white !important;
+}
+
+.mat-mdc-option:hover {
+    background-color: #333 !important;
+}
+
+.mat-mdc-option.mat-mdc-option-active {
+    background-color: #555 !important;
+}
+
 @font-face {
     font-family: 'Helvetica';
     src: url('assets/fonts/Helvetica-Roman.ttf') format('opentype');
